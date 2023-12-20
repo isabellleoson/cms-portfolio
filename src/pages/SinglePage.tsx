@@ -2,20 +2,14 @@ import { graphql, PageProps } from "gatsby";
 import * as React from "react";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { Link } from "gatsby";
-import PortfolioPage from "../components/PortfolioPage";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import Layout from "../components/Layout";
+import SinglePageComponent from "../components/SinglePageComponent";
 
 interface PortfolioProps {
   titel: string;
   beskrivning: {
     raw: string;
-    references: {
-      file: {
-        url: string | null;
-      };
-    };
   };
   bild: {
     file: {
@@ -30,33 +24,34 @@ interface QueryResult {
   };
 }
 
-const Portfolio: React.FC<PageProps<QueryResult>> = ({ data }) => {
+const SinglePage: React.FC<PageProps<QueryResult>> = ({ data }) => {
   return (
     <>
-   <Layout pageTitle=""> 
+      <Navbar pageTitle="Single page">
+        <p></p>
+      </Navbar>
       <main className="flex flex-wrap justify-center gap-3">
-        {data.allContentfulPortfolio.nodes.map((portfolio) => (
-          <PortfolioPage
-            title={portfolio.titel}
+        {data.allContentfulPortfolio.nodes.map((portfolio: PortfolioProps) => (
+          <SinglePageComponent
             imageUrl={portfolio.bild ? portfolio.bild.file.url : null}
-            imageRaw={ "" ?
-              portfolio.beskrivning.references.file.url : null
-            }
+            title={portfolio.titel}
             description={documentToReactComponents(
               JSON.parse(portfolio.beskrivning.raw),
             )}
           />
         ))}
       </main>
-      </Layout>
+      <Footer />
     </>
   );
 };
 
 export const query = graphql`
-  query MyQuery {
-    allContentfulPortfolio {
+query MyQuery {
+    allContentfulPortfolio(filter: {slug: {eq: "htmlcss"}}) {
       nodes {
+        slug
+        titel
         beskrivning {
           raw
           references {
@@ -65,7 +60,6 @@ export const query = graphql`
             }
           }
         }
-        titel
         bild {
           file {
             url
@@ -76,4 +70,4 @@ export const query = graphql`
   }
 `;
 
-export default Portfolio;
+export default SinglePage;

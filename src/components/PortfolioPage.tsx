@@ -4,17 +4,24 @@ interface PortfolioPageProps {
   title?: string;
   description?: React.ReactNode;
   imageUrl?: string | null;
+  imageRaw?: string | null;
 }
 
 const PortfolioPage: React.FC<PortfolioPageProps> = ({
   title,
   description,
   imageUrl,
+  imageRaw,
 }) => (
   <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
     <a href="#">
       {imageUrl && (
         <img className="rounded-t-lg" src={imageUrl} alt="" width="200" />
+      )}
+    </a>
+    <a href="#">
+      {imageRaw && (
+        <img className="rounded-t-lg" src={imageRaw} alt="" width="200" />
       )}
     </a>
     <div className="p-5">
