@@ -16,6 +16,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@gatsby-contrib/gatsby-plugin-elasticlunr-search": "^3.0.2",
     "autoprefixer": "^10.4.16",
     "gatsby": "^5.12.12",
     "gatsby-plugin-image": "^3.13.0",

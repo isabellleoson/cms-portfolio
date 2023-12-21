@@ -1,36 +1,48 @@
 import React from "react";
-import { Link } from "gatsby";
+import { Link, StaticQuery, graphql } from "gatsby";
+import Search from "./Search";
 
 const Navigation = () => (
-  <nav className="flex justify-end">
-    <ul className=" text-end justify-end">
-      <li className="">
-        <Link to="/" className="">
-          Hem
-        </Link>
-      </li>
-      <li className="">
-        <Link to="/Portfolio" className="">
-          Portfolio
-        </Link>
-      </li>
-      <li className="">
-        <Link to="/SinglePage" className="">
-          En sida
-        </Link>
-      </li>
-      <li className="">
-        <Link to="/About" className="">
-          Om
-        </Link>
-      </li>
-      <li className="">
-        <Link to="/$slug" className="">
-          Om
-        </Link>
-      </li>
+  <>
+    <div className="mr-2 mt-2 flex justify-end">
+      <StaticQuery
+        query={graphql`
+          query SearchIndexQuery {
+            siteSearchIndex {
+              index
+            }
+          }
+        `}
+        render={(data) => (
+          <div className="flex flex-wrap items-center">
+            <p className="mr-2">Sök: </p>
 
-    </ul>
-  </nav>
+            <Search searchIndex={data.siteSearchIndex.index} />
+          </div>
+        )}
+      />
+    </div>
+    <nav className="">
+      <ul className="flex space-x-10 justify-center">
+        <li className="">
+          <Link to="/index" className="">
+            Hem
+          </Link>
+        </li>
+        <li className="">
+          <Link to="/Portfolio" className="">
+            Portfolio
+          </Link>
+        </li>
+        <li className="">
+          <Link to="/om" className="">
+            Om
+          </Link>
+        </li>
+      
+       
+      </ul>
+    </nav>
+  </>
 );
 export default Navigation;

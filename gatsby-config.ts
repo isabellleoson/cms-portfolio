@@ -18,6 +18,23 @@ const config: GatsbyConfig = {
 
   plugins: [
     {
+      resolve: `@gatsby-contrib/gatsby-plugin-elasticlunr-search`,
+      options: {
+        // Fields to index
+        fields: [`titel`, `slug`],
+        // How to resolve each field`s value for a supported node type
+        resolvers: {
+          // For any node of type MarkdownRemark, list how to resolve the fields` values
+          ContentfulPortfolio: {
+            title: (node: {titel: string}) => node.titel,
+            slug: (node: {slug: string}) => node.slug,
+          },
+        },
+        // Optional filter to limit indexed nodes
+        //filter: (node, getNode) => node.frontmatter.tags !== "exempt",
+      },
+    },
+    {
       resolve: "gatsby-source-contentful",
       options: {
         accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,

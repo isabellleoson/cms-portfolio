@@ -55,7 +55,7 @@ const Index: React.FC<PageProps<QueryResult>> = ({ data }) => {
 
 export const pageQuery = graphql`
   query MyQuery {
-    contentfulPortfolio(slug: { eq: "hem" }) {
+    contentfulPortfolio(slug: { eq: "/" }) {
       titel
       slug
       bild {
