@@ -1,37 +1,45 @@
 import React from "react";
 import { graphql, PageProps, HeadFC } from "gatsby";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import Navbar from "../components/Navbar";
-import { Link } from "gatsby";
 import Layout from "../components/Layout";
-import SinglePageComponent from "../components/SinglePageComponent";
+
+// interface BlogProps {
+//   titel: string;
+//   slug: string;
+//   beskrivning: {
+//     raw: string;
+//   };
+//   bild: {
+//     file: {
+//       url: string | null;
+//     };
+//   };
+// }
 
 interface BlogProps {
   titel: string;
   slug: string;
-  beskrivning: {
-    raw: string;
+  text: {
+    text: string;
   };
-  bild: {
-    file: {
-      url: string | null;
-    };
+  image: {
+    url: string | null;
   };
 }
 
 interface QueryResult {
-  contentfulPortfolio: BlogProps;
+  contentfulPages: BlogProps;
 }
 
 const Index: React.FC<PageProps<QueryResult>> = ({ data }) => {
-  const portfolio = data.contentfulPortfolio;
+  const portfolio = data.contentfulPages;
 
   return (
     <>
       <Layout pageTitle="">
         <main
           style={{
-            backgroundImage: `url(${portfolio.bild.file.url})`,
+            backgroundImage: `url(${portfolio.image.url})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             minHeight: "500px",
@@ -41,11 +49,12 @@ const Index: React.FC<PageProps<QueryResult>> = ({ data }) => {
           <div className="p-2 text-end justify-end flex"></div>
 
           <div className="p-2 text-end items-end flex flex-col">
-            <h1 className="">{portfolio.titel}</h1>
+            <h1 className="m-2">{portfolio.titel}</h1>
+            <p>{portfolio.text.text}</p>
 
-            <p className="w-4/12">
-              {documentToReactComponents(JSON.parse(portfolio.beskrivning.raw))}
-            </p>
+            {/* <p className="w-4/12">
+              {documentToReactComponents(JSON.parse(portfolio.text.text))}
+            </p> */}
           </div>
         </main>
       </Layout>
@@ -55,16 +64,14 @@ const Index: React.FC<PageProps<QueryResult>> = ({ data }) => {
 
 export const pageQuery = graphql`
   query MyQuery {
-    contentfulPortfolio(slug: { eq: "/" }) {
+    contentfulPages(slug: { eq: "/" }) {
       titel
       slug
-      bild {
-        file {
-          url
-        }
+      text {
+        text
       }
-      beskrivning {
-        raw
+      image {
+        url
       }
     }
   }

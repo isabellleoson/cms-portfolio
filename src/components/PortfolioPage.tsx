@@ -5,37 +5,34 @@ interface PortfolioPageProps {
   description?: React.ReactNode;
   imageUrl?: string | null;
   imageRaw?: string | null;
+  slug?: string;
+  underrubrik?: string;
+  textfield?: string;
 }
 
 const PortfolioPage: React.FC<PortfolioPageProps> = ({
   title,
   description,
   imageUrl,
-  imageRaw,
+  underrubrik,
+  textfield,
+  slug,
 }) => (
-  <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-    <a href="#">
-      {imageUrl && (
-        <img className="rounded-t-lg" src={imageUrl} alt="" width="200" />
-      )}
-    </a>
-    <a href="#">
-      {imageRaw && (
-        <img className="rounded-t-lg" src={imageRaw} alt="" width="200" />
-      )}
-    </a>
-    <div className="p-5">
-      <a href="#">
+  <a href={`/${slug}`}>
+    <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      {imageUrl && <img className="rounded-t-lg" src={imageUrl} alt="" />}
+      <div className="p-5">
         <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
           {title}
         </h5>
-      </a>
-
-      <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-        {description}
-      </p>
+        <h6>{underrubrik}</h6>
+<p>{textfield}</p>
+        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+          {description}
+        </p>
+      </div>
     </div>
-  </div>
+  </a>
 );
 
 export default PortfolioPage;

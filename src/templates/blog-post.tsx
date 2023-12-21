@@ -1,12 +1,15 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { graphql, PageProps } from "gatsby";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import Layout from "../components/Layout";
-import SinglePageComponent from "../components/SinglePageComponent";
 
 interface BlogProps {
   titel: string;
   slug: string;
+  underrubrik: string;
+  textfield: {
+    textfield: string;
+  };
   beskrivning: {
     raw: string;
   };
@@ -29,15 +32,23 @@ const Blog: React.FC<PageProps<QueryResult>> = ({ data }) => {
     <>
       <Layout pageTitle={portfolio.titel}>
         <main className="flex flex-col">
+          <h2>{portfolio.underrubrik}</h2>
           <div className="flex">
             {portfolio.bild && (
               <img src={portfolio.bild.url} alt="" className="max-w-sm p-2" />
             )}
             <div className="w-1/2 text-center bg-slate-400">
+              {portfolio.textfield && (
+                <p className="m-4 flex justify-end font-serif text-end bg-blue-500">
+                  {portfolio.textfield.textfield}
+                </p>
+              )}
+
               <p className="text-center text-blue">
-                {documentToReactComponents(
-                  JSON.parse(portfolio.beskrivning.raw),
-                )}
+                {portfolio.beskrivning &&
+                  documentToReactComponents(
+                    JSON.parse(portfolio.beskrivning.raw),
+                  )}
               </p>
             </div>
           </div>
@@ -74,6 +85,10 @@ export const pageQuery = graphql`
     contentfulPortfolio(slug: { eq: $slug }) {
       titel
       slug
+      underrubrik
+      textfield {
+        textfield
+      }
       bild {
         url
       }

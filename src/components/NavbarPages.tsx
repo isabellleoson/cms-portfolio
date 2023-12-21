@@ -3,27 +3,29 @@ import { Link, StaticQuery, graphql } from "gatsby";
 
 interface Node {
   slug: string;
+  titel: string;
 }
 
-const Navbar = () => (
+const NavbarPages = () => (
   <>
     <nav className="">
       <ul className="flex space-x-10 justify-center">
         <StaticQuery
           query={graphql`
             query MyQuery {
-              allContentfulPortfolio {
+              allContentfulPages {
                 nodes {
                   slug
+                  titel
                 }
               }
             }
           `}
-          render={(data: { allContentfulPortfolio: { nodes: Node[] } }) =>
-            data.allContentfulPortfolio.nodes.map((node) => (
+          render={(data: { allContentfulPages: { nodes: Node[] } }) =>
+            data.allContentfulPages.nodes.map((node) => (
               <li key={node.slug} className="">
                 <Link to={`/${node.slug}`} className="">
-                  {node.slug}
+                  <p>{node.titel}</p>
                 </Link>
               </li>
             ))
@@ -34,4 +36,4 @@ const Navbar = () => (
   </>
 );
 
-export default Navbar;
+export default NavbarPages;
