@@ -10,9 +10,7 @@ interface BlogProps {
   textfield: {
     textfield: string;
   };
-  beskrivning: {
-    raw: string;
-  };
+
   bild: {
     url: string;
   };
@@ -43,13 +41,6 @@ const Blog: React.FC<PageProps<QueryResult>> = ({ data }) => {
                   {portfolio.textfield.textfield}
                 </p>
               )}
-
-              <p className="text-center text-blue">
-                {portfolio.beskrivning &&
-                  documentToReactComponents(
-                    JSON.parse(portfolio.beskrivning.raw),
-                  )}
-              </p>
             </div>
           </div>
           <div className="flex flex-wrap">
@@ -64,14 +55,6 @@ const Blog: React.FC<PageProps<QueryResult>> = ({ data }) => {
                 />
               ))}
           </div>
-
-          {/* <SinglePageComponent
-          imageUrl={portfolio.bild ? portfolio.bild.file.url : null}
-          title={portfolio.titel}
-          description={documentToReactComponents(
-            JSON.parse(portfolio.beskrivning.raw),
-          )}
-        /> */}
         </main>
       </Layout>
     </>
@@ -83,20 +66,17 @@ export default Blog;
 export const pageQuery = graphql`
   query MyQuery($slug: String!) {
     contentfulPortfolio(slug: { eq: $slug }) {
-      titel
       slug
-      underrubrik
+      titel
       textfield {
         textfield
       }
-      bild {
-        url
-      }
+      underrubrik
       galleri {
         url
       }
-      beskrivning {
-        raw
+      bild {
+        url
       }
     }
   }

@@ -3,7 +3,7 @@ import { Link, useStaticQuery, graphql } from "gatsby";
 import Navigation from "./navigation";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
-import NavbarPages from "./NavbarPages";
+// import NavbarPages from "./NavbarPages";
 
 interface LayoutProps {
   pageTitle: string;
@@ -24,7 +24,8 @@ const Layout: React.FC<LayoutProps> = ({ pageTitle, children }) => {
     <div className="">
       <header className="">
         <Navbar />
-        <NavbarPages />
+        
+        {/* <NavbarPages /> */}
         <Navigation />
       </header>
       <main className="flex flex-col bg-blue-500">

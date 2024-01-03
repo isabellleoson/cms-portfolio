@@ -3,6 +3,7 @@ import { Link, StaticQuery, graphql } from "gatsby";
 
 interface Node {
   slug: string;
+  titel: string;
 }
 
 const Navbar = () => (
@@ -15,6 +16,7 @@ const Navbar = () => (
               allContentfulPortfolio {
                 nodes {
                   slug
+                  titel
                 }
               }
             }
@@ -23,7 +25,7 @@ const Navbar = () => (
             data.allContentfulPortfolio.nodes.map((node) => (
               <li key={node.slug} className="">
                 <Link to={`/${node.slug}`} className="">
-                  {node.slug}
+                  {node.titel}
                 </Link>
               </li>
             ))

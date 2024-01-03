@@ -1,7 +1,6 @@
 import { graphql, PageProps } from "gatsby";
 import * as React from "react";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import { Link } from "gatsby";
 import PortfolioPage from "../components/PortfolioPage";
 import Layout from "../components/Layout";
 
@@ -14,11 +13,6 @@ interface PortfolioProps {
   };
   beskrivning: {
     raw: string;
-    references: {
-      file: {
-        url: string | null;
-      };
-    };
   };
   bild: {
     file: {
@@ -44,7 +38,6 @@ const Portfolio: React.FC<PageProps<QueryResult>> = ({ data }) => {
               title={portfolio.titel}
               underrubrik={portfolio.underrubrik}
               imageUrl={portfolio.bild ? portfolio.bild.file.url : null}
-              imageRaw={"" ? portfolio.beskrivning.references.file.url : null}
               description={
                 ""
                   ? documentToReactComponents(
@@ -71,11 +64,6 @@ export const query = graphql`
         }
         beskrivning {
           raw
-          references {
-            file {
-              url
-            }
-          }
         }
         titel
         bild {

@@ -2,7 +2,7 @@ import { GatsbyNode } from "gatsby";
 import path from "path";
 
 interface ContentfulPortfolioNode {
-  title: string;
+  titel: string;
   slug: string;
 }
 
@@ -22,7 +22,7 @@ const createPages: GatsbyNode["createPages"] = async ({
   const blogPost = path.resolve("./src/templates/blog-post.tsx");
   const result = await graphql<ContentfulPortfolioQueryResult>(
     `
-      {
+      query MyContentfulQuery {
         allContentfulPortfolio {
           nodes {
             titel

@@ -1,5 +1,5 @@
 import React from "react";
-import { graphql, PageProps, HeadFC } from "gatsby";
+import { graphql, PageProps, HeadFC, Link } from "gatsby";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import Layout from "../components/Layout";
 
@@ -49,8 +49,16 @@ const Index: React.FC<PageProps<QueryResult>> = ({ data }) => {
           <div className="p-2 text-end justify-end flex"></div>
 
           <div className="p-2 text-end items-end flex flex-col">
-            <h1 className="m-2">{portfolio.titel}</h1>
+            {/* <h1 className="m-2">{portfolio.titel}</h1> */}
             <p>{portfolio.text.text}</p>
+            <div className="space-x-5 mt-5">
+              <Link to="/Portfolio" className="">
+                Portfolio
+              </Link>
+              <Link to="/" className="">
+                About Isabell
+              </Link>
+            </div>
 
             {/* <p className="w-4/12">
               {documentToReactComponents(JSON.parse(portfolio.text.text))}
