@@ -12,7 +12,7 @@ const Navbar = () => (
       <ul className="flex space-x-10 justify-center">
         <StaticQuery
           query={graphql`
-            query MyQuery {
+            query MyNavQuery {
               allContentfulPortfolio {
                 nodes {
                   slug
