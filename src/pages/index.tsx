@@ -3,19 +3,6 @@ import { graphql, PageProps, HeadFC, Link } from "gatsby";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import Layout from "../components/Layout";
 
-// interface BlogProps {
-//   titel: string;
-//   slug: string;
-//   beskrivning: {
-//     raw: string;
-//   };
-//   bild: {
-//     file: {
-//       url: string | null;
-//     };
-//   };
-// }
-
 interface BlogProps {
   titel: string;
   slug: string;
@@ -44,18 +31,16 @@ const Index: React.FC<PageProps<QueryResult>> = ({ data }) => {
             backgroundPosition: "center",
             minHeight: "500px",
           }}
-          className="flex"
+          className="flex justify-end"
         >
-          <div className="p-2 text-end justify-end flex"></div>
-
           <div className="p-2 text-end items-end flex flex-col">
             {/* <h1 className="m-2">{portfolio.titel}</h1> */}
-            <p>{portfolio.text.text}</p>
+            <p className="w-1/2">{portfolio.text.text}</p>
             <div className="space-x-5 mt-5">
               <Link to="/Portfolio" className="">
                 Portfolio
               </Link>
-              <Link to="/" className="">
+              <Link to="/About" className="">
                 About Isabell
               </Link>
             </div>

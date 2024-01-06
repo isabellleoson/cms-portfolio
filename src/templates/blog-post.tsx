@@ -26,22 +26,50 @@ interface QueryResult {
 const Blog: React.FC<PageProps<QueryResult>> = ({ data }) => {
   const portfolio = data.contentfulPortfolio;
 
+  const divStyle = {
+    height: "80vh",
+  };
+
+  const divHight = {
+    // maxHeight: "20vh",
+    maxWidth: "26vw",
+    marginTop: "10px",
+    padding: "10px",
+  };
+
+  const bgColor = {
+    backgroundColor: "yellow",
+  };
+
   return (
     <>
-      <Layout pageTitle={portfolio.titel}>
-        <main className="flex flex-col">
-          <h2>{portfolio.underrubrik}</h2>
-          <div className="flex">
-            {portfolio.bild && (
-              <img src={portfolio.bild.url} alt="" className="max-w-sm p-2" />
-            )}
-            <div className="w-1/2 text-center bg-slate-400">
-              {portfolio.textfield && (
-                <p className="m-4 flex justify-end font-serif text-end bg-blue-500">
-                  {portfolio.textfield.textfield}
-                </p>
-              )}
+      <Layout pageTitle="">
+        <main className="flex flex-col items-center bg-stone-400">
+          <div style={divStyle} className="flex space-x-10 items-center mb-4">
+            <div className="text-center items-center justify-center ">
+              <h1 className="font-bold mb-2 text-2xl">{portfolio.titel}</h1>
+              <h2>{portfolio.underrubrik}</h2>
             </div>
+
+            {portfolio.bild && (
+              <div style={divHight} className="max-w-md p-2">
+                <img
+                  src={portfolio.bild.url}
+                  alt=""
+                  className="max-w-full p-2 mt-2"
+                />
+              </div>
+            )}
+          </div>
+          <div className="w-1/2 text-center  bg-yellow-600">
+            {portfolio.textfield && (
+              <p
+                style={bgColor}
+                className=" m-4 flex justify-end relative font-serif text-end"
+              >
+                {portfolio.textfield.textfield}
+              </p>
+            )}
           </div>
           <div className="flex flex-wrap">
             {Array.isArray(portfolio.galleri) &&

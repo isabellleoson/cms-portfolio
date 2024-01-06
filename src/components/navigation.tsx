@@ -25,8 +25,18 @@ const Navigation = () => (
     <nav className="">
       <ul className="flex space-x-10 justify-center">
         <li className="">
+          <Link to="/" className="">
+            Home
+          </Link>
+        </li>
+        <li>
           <Link to="/Portfolio" className="">
             Portfolio
+          </Link>
+        </li>
+        <li className="">
+          <Link to="/About" className="">
+            About
           </Link>
         </li>
       </ul>

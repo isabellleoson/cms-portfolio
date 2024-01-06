@@ -21,19 +21,21 @@ const Layout: React.FC<LayoutProps> = ({ pageTitle, children }) => {
     }
   `);
   return (
-    <div className="">
-      <header className="">
+    <>
+      <header className="pb-2 bg-stone-100">
         <Navbar />
-        
+
         {/* <NavbarPages /> */}
         <Navigation />
       </header>
-      <main className="flex flex-col bg-blue-500">
+      <main className="">
         <h1 className="">{pageTitle}</h1>
         {children}
       </main>
-      <Footer />
-    </div>
+      <footer className="bg-stone-100">
+        <Footer />
+      </footer>
+    </>
   );
 };
 export default Layout;

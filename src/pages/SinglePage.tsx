@@ -2,7 +2,7 @@ import { graphql, PageProps } from "gatsby";
 import * as React from "react";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { Link } from "gatsby";
-import Navbar from "../components/Navbar";
+// import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import SinglePageComponent from "../components/SinglePageComponent";
 
@@ -27,9 +27,9 @@ interface QueryResult {
 const SinglePage: React.FC<PageProps<QueryResult>> = ({ data }) => {
   return (
     <>
-      <Navbar pageTitle="Single page">
+      {/* <Navbar pageTitle="Single page">
         <p></p>
-      </Navbar>
+      </Navbar> */}
       <main className="flex flex-wrap justify-center gap-3">
         {data.allContentfulPortfolio.nodes.map((portfolio: PortfolioProps) => (
           <SinglePageComponent
@@ -47,18 +47,13 @@ const SinglePage: React.FC<PageProps<QueryResult>> = ({ data }) => {
 };
 
 export const query = graphql`
-query MyQuery {
-    allContentfulPortfolio(filter: {slug: {eq: "htmlcss"}}) {
+  query MyQuery {
+    allContentfulPortfolio(filter: { slug: { eq: "htmlcss" } }) {
       nodes {
         slug
         titel
         beskrivning {
           raw
-          references {
-            file {
-              url
-            }
-          }
         }
         bild {
           file {
