@@ -4,6 +4,7 @@ import path from "path";
 interface ContentfulPortfolioNode {
   titel: string;
   slug: string;
+  category: string;
 }
 
 interface ContentfulPortfolioQueryResult {
@@ -20,6 +21,8 @@ const createPages: GatsbyNode["createPages"] = async ({
   const { createPage } = actions;
 
   const blogPost = path.resolve("./src/templates/blog-post.tsx");
+  const categoryPost = path.resolve("./src/templates/CategoryPage.tsx");
+
   const result = await graphql<ContentfulPortfolioQueryResult>(
     `
       query MyContentfulQuery {
@@ -27,6 +30,7 @@ const createPages: GatsbyNode["createPages"] = async ({
           nodes {
             titel
             slug
+            category
           }
         }
       }
@@ -48,6 +52,20 @@ const createPages: GatsbyNode["createPages"] = async ({
       createPage({
         path: `/${post.slug}/`,
         component: blogPost,
+        context: {
+          slug: post.slug,
+        },
+      });
+    });
+  }
+
+  const filterCategory = result.data?.allContentfulPortfolio.nodes || [];
+
+  if (filterCategory.length > 0) {
+    filterCategory.forEach((post) => {
+      createPage({
+        path: `/${post.category}/`,
+        component: categoryPost,
         context: {
           slug: post.slug,
         },
