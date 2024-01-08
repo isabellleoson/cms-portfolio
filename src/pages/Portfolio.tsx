@@ -31,7 +31,7 @@ const Portfolio: React.FC<PageProps<QueryResult>> = ({ data }) => {
   return (
     <>
       <Layout pageTitle="">
-        <main className="flex flex-wrap justify-center gap-3">
+        <main className="flex flex-wrap justify-center mt-2 mb-2 gap-3">
           {data.allContentfulPortfolio.nodes.map((portfolio) => (
             <PortfolioPage
               slug={portfolio.slug}

@@ -28,7 +28,7 @@ const Layout: React.FC<LayoutProps> = ({ pageTitle, children }) => {
         {/* <NavbarPages /> */}
         <Navigation />
       </header>
-      <main className="">
+      <main className="ml-4 mr-4">
         <h1 className="">{pageTitle}</h1>
         {children}
       </main>

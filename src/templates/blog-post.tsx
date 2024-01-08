@@ -7,6 +7,9 @@ interface BlogProps {
   titel: string;
   slug: string;
   underrubrik: string;
+  beskrivning: {
+    raw: string;
+  }
   textfield: {
     textfield: string;
   };
@@ -71,6 +74,14 @@ const Blog: React.FC<PageProps<QueryResult>> = ({ data }) => {
               </p>
             )}
           </div>
+          <div className="flex justify-end">
+            <p className="m-2 w-1/2 text-end">
+            {documentToReactComponents(JSON.parse(portfolio.beskrivning.raw))}
+            </p>
+            </div>
+       
+
+        
           <div className="flex flex-wrap">
             {Array.isArray(portfolio.galleri) &&
               portfolio.galleri.map((image, index) => (
@@ -96,6 +107,9 @@ export const pageQuery = graphql`
     contentfulPortfolio(slug: { eq: $slug }) {
       slug
       titel
+      beskrivning {
+        raw
+      }
       textfield {
         textfield
       }
