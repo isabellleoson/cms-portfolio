@@ -39,6 +39,11 @@ const Navigation = () => (
             About
           </Link>
         </li>
+        <li className="">
+          <Link to="/Category" className="">
+            Kategorier
+          </Link>
+        </li>
       </ul>
     </nav>
   </>

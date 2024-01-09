@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { graphql, PageProps } from "gatsby";
+import { graphql, Link, PageProps } from "gatsby";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import Layout from "../components/Layout";
 
@@ -7,13 +7,10 @@ interface BlogProps {
   titel: string;
   slug: string;
   underrubrik: string;
+  link: string;
   beskrivning: {
     raw: string;
-  }
-  textfield: {
-    textfield: string;
   };
-
   bild: {
     url: string;
   };
@@ -47,7 +44,7 @@ const Blog: React.FC<PageProps<QueryResult>> = ({ data }) => {
   return (
     <>
       <Layout pageTitle="">
-        <main className="flex flex-col items-center bg-stone-400">
+        <main className="flex flex-col items-center ">
           <div style={divStyle} className="flex space-x-10 items-center mb-4">
             <div className="text-center items-center justify-center ">
               <h1 className="font-bold mb-2 text-2xl">{portfolio.titel}</h1>
@@ -64,33 +61,22 @@ const Blog: React.FC<PageProps<QueryResult>> = ({ data }) => {
               </div>
             )}
           </div>
-          <div className="w-1/2 text-center  bg-yellow-600">
-            {portfolio.textfield && (
-              <p
-                style={bgColor}
-                className=" m-4 flex justify-end relative font-serif text-end"
-              >
-                {portfolio.textfield.textfield}
-              </p>
-            )}
-          </div>
-          <div className="flex justify-end">
+          <div className="flex justify-end bg-slate-600 z-50">
             <p className="m-2 w-1/2 text-end">
-            {documentToReactComponents(JSON.parse(portfolio.beskrivning.raw))}
+              {documentToReactComponents(JSON.parse(portfolio.beskrivning.raw))}
             </p>
-            </div>
-       
+          </div>
+          <Link to={portfolio.link}>{portfolio.link}</Link>
 
-        
-          <div className="flex flex-wrap">
+          <div className="flex flex-wrap ">
             {Array.isArray(portfolio.galleri) &&
               portfolio.galleri.map((image, index) => (
                 <img
                   key={index}
                   src={image.url}
                   alt=""
-                  className="p-2"
-                  width={200}
+                  className="p-2 m-2 shadow-md border"
+                  width={250}
                 />
               ))}
           </div>
@@ -107,11 +93,9 @@ export const pageQuery = graphql`
     contentfulPortfolio(slug: { eq: $slug }) {
       slug
       titel
+      link
       beskrivning {
         raw
-      }
-      textfield {
-        textfield
       }
       underrubrik
       galleri {

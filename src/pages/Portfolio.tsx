@@ -8,9 +8,6 @@ interface PortfolioProps {
   titel: string;
   slug: string;
   underrubrik: string;
-  textfield: {
-    textfield: string;
-  };
   beskrivning: {
     raw: string;
   };
@@ -59,9 +56,6 @@ export const query = graphql`
       nodes {
         slug
         underrubrik
-        textfield {
-          textfield
-        }
         beskrivning {
           raw
         }

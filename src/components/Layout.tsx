@@ -28,10 +28,8 @@ const Layout: React.FC<LayoutProps> = ({ pageTitle, children }) => {
         {/* <NavbarPages /> */}
         <Navigation />
       </header>
-      <main className="ml-4 mr-4">
-        <h1 className="">{pageTitle}</h1>
-        {children}
-      </main>
+      <h1 className="">{pageTitle}</h1>
+      {children}
       <footer className="bg-stone-100">
         <Footer />
       </footer>
