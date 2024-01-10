@@ -4,7 +4,7 @@ import Layout from "../components/Layout";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { Node } from "@contentful/rich-text-types";
 
-interface AboutProps {
+interface ContactProps {
   titel: string;
   slug: string;
   richText: {
@@ -16,34 +16,44 @@ interface AboutProps {
 }
 
 interface QueryResult {
-  contentfulPages: AboutProps;
+  contentfulPages: ContactProps;
 }
 
 const options = {
   renderNode: {
     "embedded-entry-block": (node: Node) => {
       console.log("Embedded Entry Node:", node);
+
+      // Update this based on your actual node structure
       const { target } = node.data;
 
       if (target && target.fields) {
+        // Customize this according to your content structure
         return <a href={`/${target.fields.slug}`}>{target.fields.title}</a>;
       }
+
+      // Default behavior if the structure is not as expected
       return null;
     },
   },
 };
 
-const About: React.FC<PageProps<QueryResult>> = ({ data }) => {
-  const about = data.contentfulPages;
+const Contact: React.FC<PageProps<QueryResult>> = ({ data }) => {
+  const contact = data.contentfulPages;
 
   return (
     <>
       <Layout pageTitle="">
         <div className="p-6">
-          <h1 className="mb-4 text-center font-bold">{about.titel}</h1>
-          <span>
-            {documentToReactComponents(JSON.parse(about.richText.raw), options)}
-          </span>
+          <h1 className="mb-4 text-center font-bold">{contact.titel}</h1>
+          {contact.richText ? (
+            <span>
+              {documentToReactComponents(
+                JSON.parse(contact.richText.raw),
+                options,
+              )}
+            </span>
+          ) : null}
         </div>
       </Layout>
     </>
@@ -52,7 +62,7 @@ const About: React.FC<PageProps<QueryResult>> = ({ data }) => {
 
 export const pageQuery = graphql`
   query MyQuery {
-    contentfulPages(slug: { eq: "about" }) {
+    contentfulPages(slug: { eq: "contact" }) {
       richText {
         raw
       }
@@ -65,4 +75,4 @@ export const pageQuery = graphql`
   }
 `;
 
-export default About;
+export default Contact;

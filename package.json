@@ -16,8 +16,11 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@contentful/rich-text-html-renderer": "^16.3.0",
     "@gatsby-contrib/gatsby-plugin-elasticlunr-search": "^3.0.2",
+    "@graphcms/rich-text-react-renderer": "^0.6.1",
     "autoprefixer": "^10.4.16",
+    "contentful": "^10.6.16",
     "gatsby": "^5.12.12",
     "gatsby-plugin-image": "^3.13.0",
     "gatsby-plugin-postcss": "^6.12.0",

@@ -11,7 +11,7 @@ interface PortfolioNode {
   };
   titel: string;
   image: {
-    url: string;
+    url: string | null;
   };
 }
 
@@ -27,15 +27,19 @@ const Category: React.FC<PageProps<PortfolioQuery>> = (props) => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(
     "About",
   );
+
   const allPosts = props.data.allContentfulPages.edges;
+
   const categories = [...new Set(allPosts.map((post) => post.node.category))];
+
+  categories.sort();
 
   const filteredPosts = () => {
     return allPosts.filter((post) => post.node.category === selectedCategory);
   };
 
   const backgroundImageUrl =
-    props.data.allContentfulPages.edges[0].node.image.url;
+    props.data.allContentfulPages.edges[0]?.node?.image?.url;
 
   return (
     <Layout pageTitle="">
@@ -46,34 +50,36 @@ const Category: React.FC<PageProps<PortfolioQuery>> = (props) => {
           backgroundPosition: "center",
           minHeight: "500px",
         }}
-        className=""
+        className="ml-6 mr-6"
       >
-        <div className="mr-6">
-          <div className="flex justify-end">
-            <ul className="flex space-x-14 p-2 font-medium">
-              {categories.map((category, index) => (
-                <li
-                  className="text-lg hover:text-gray-600"
-                  key={`${index}`}
-                >
-                  <button onClick={() => setSelectedCategory(category)}>
-                    {category}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
+        <div className="">
           <div className="">
             {filteredPosts().map(({ node }, index) => (
               <>
-                <div
-                  className="flex justify-end text-end bg-opacity-20"
-                  key={index}
-                >
-                  <h1>{node.titel}</h1>
-                  <p className="w-1/3">
-                    {documentToReactComponents(JSON.parse(node.richText.raw))}
-                  </p>
+                <div className="flex">
+                  <ul className="flex-3 p-6 h-full font-medium bg-neutral-200">
+                    {categories.map((category, index) => (
+                      <li
+                        className="text-lg hover:text-gray-600"
+                        key={`${index}`}
+                      >
+                        <button onClick={() => setSelectedCategory(category)}>
+                          {category}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div
+                    className="flex flex-1 flex-col items-end text-end bg-opacity-20"
+                    key={index}
+                  >
+                    <h1 className="text-5xl mt-6 mb-6">{node.titel}</h1>
+
+                    <p className="w-2/3">
+                      {documentToReactComponents(JSON.parse(node.richText.raw))}
+                    </p>
+                  </div>
                 </div>
               </>
             ))}

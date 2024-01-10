@@ -3,6 +3,7 @@ import { graphql, PageProps } from "gatsby";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import Layout from "../components/Layout";
 import PortfolioPage from "../components/PortfolioPage";
+import Navbar from "../components/Navbar";
 
 interface PortfolioNode {
   id: string;
@@ -15,7 +16,7 @@ interface PortfolioNode {
   };
   titel: string;
   bild: {
-    url: string;
+    url: string | null;
   };
 }
 
@@ -72,6 +73,8 @@ const Category: React.FC<PageProps<PortfolioQuery>> = (props) => {
 
   return (
     <Layout pageTitle="">
+      <Navbar />
+
       <main className="">
         <div className="flex justify-end">
           <select

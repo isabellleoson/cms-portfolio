@@ -4,26 +4,8 @@ import Search from "./Search";
 
 const Navigation = () => (
   <>
-    <div className="mr-2 mt-2 flex justify-end">
-      <StaticQuery
-        query={graphql`
-          query SearchIndexQuery {
-            siteSearchIndex {
-              index
-            }
-          }
-        `}
-        render={(data) => (
-          <div className="flex flex-wrap items-center">
-            <p className="mr-2">Sök: </p>
-
-            <Search searchIndex={data.siteSearchIndex.index} />
-          </div>
-        )}
-      />
-    </div>
     <nav className="">
-      <ul className="flex space-x-10 justify-center">
+      <ul className="flex pt-2 space-x-10 justify-center">
         <li className="">
           <Link to="/" className="">
             Home
@@ -46,6 +28,25 @@ const Navigation = () => (
         </li>
       </ul>
     </nav>
+
+    <div className="mr-2 mt-2 flex justify-end">
+      <StaticQuery
+        query={graphql`
+          query SearchIndexQuery {
+            siteSearchIndex {
+              index
+            }
+          }
+        `}
+        render={(data) => (
+          <div className="flex flex-wrap items-center">
+            <p className="mr-2">Search Projects: </p>
+
+            <Search searchIndex={data.siteSearchIndex.index} />
+          </div>
+        )}
+      />
+    </div>
   </>
 );
 export default Navigation;

@@ -2,8 +2,8 @@ import * as React from "react";
 import { Link, useStaticQuery, graphql } from "gatsby";
 import Navigation from "./navigation";
 import Footer from "./Footer";
-import Navbar from "./Navbar";
-// import NavbarPages from "./NavbarPages";
+// import Navbar from "./Navbar";
+
 
 interface LayoutProps {
   pageTitle: string;
@@ -23,9 +23,7 @@ const Layout: React.FC<LayoutProps> = ({ pageTitle, children }) => {
   return (
     <>
       <header className="pb-2 bg-stone-100">
-        <Navbar />
-
-        {/* <NavbarPages /> */}
+        {/* <Navbar /> */}
         <Navigation />
       </header>
       <h1 className="">{pageTitle}</h1>

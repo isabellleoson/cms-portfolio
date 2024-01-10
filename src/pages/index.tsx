@@ -6,8 +6,8 @@ import Layout from "../components/Layout";
 interface BlogProps {
   titel: string;
   slug: string;
-  text: {
-    text: string;
+  richText: {
+    raw: string;
   };
   image: {
     url: string | null;
@@ -23,34 +23,40 @@ const Index: React.FC<PageProps<QueryResult>> = ({ data }) => {
 
   return (
     <>
-      <Layout pageTitle="">
-        <main
-          style={{
-            backgroundImage: `url(${portfolio.image.url})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            minHeight: "500px",
-          }}
-          className="flex justify-end"
-        >
-          <div className="p-2 text-end items-end flex flex-col">
-            {/* <h1 className="m-2">{portfolio.titel}</h1> */}
-            <p className="w-1/2">{portfolio.text.text}</p>
-            <div className="space-x-5 mt-5">
-              <Link to="/Portfolio" className="">
-                Portfolio
-              </Link>
-              <Link to="/About" className="">
-                About Isabell
-              </Link>
-            </div>
+      {/* <Layout pageTitle=""> */}
+      <main
+        // style={{
+        //   backgroundImage: `url(${portfolio.image.url})`,
+        //   backgroundSize: "cover",
+        //   backgroundPosition: "center",
+        //   minHeight: "500px",
+        // }}
+        className="flex justify-end p-6"
+      >
+        <div className="p-2 text-end items-end flex flex-col">
+          {/* <h1 className="m-2">{portfolio.titel}</h1> */}
 
-            {/* <p className="w-4/12">
+          {portfolio.richText && (
+            <div className="text-5xl tracking-wider">
+              {documentToReactComponents(JSON.parse(portfolio.richText.raw))}
+            </div>
+          )}
+
+          <div className="space-x-5 mt-5 text-4xl">
+            <Link to="/Category" className="">
+              Portfolio
+            </Link>
+            <Link to="/Resume" className="">
+              Resumé
+            </Link>
+          </div>
+
+          {/* <p className="w-4/12">
               {documentToReactComponents(JSON.parse(portfolio.text.text))}
             </p> */}
-          </div>
-        </main>
-      </Layout>
+        </div>
+      </main>
+      {/* </Layout> */}
     </>
   );
 };
@@ -60,8 +66,8 @@ export const pageQuery = graphql`
     contentfulPages(slug: { eq: "/" }) {
       titel
       slug
-      text {
-        text
+      richText {
+        raw
       }
       image {
         url
