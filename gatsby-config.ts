@@ -26,8 +26,8 @@ const config: GatsbyConfig = {
         resolvers: {
           // For any node of type MarkdownRemark, list how to resolve the fields` values
           ContentfulPortfolio: {
-            title: (node: {titel: string}) => node.titel,
-            slug: (node: {slug: string}) => node.slug,
+            title: (node: { titel: string }) => node.titel,
+            slug: (node: { slug: string }) => node.slug,
           },
         },
         // Optional filter to limit indexed nodes

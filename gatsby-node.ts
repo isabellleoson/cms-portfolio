@@ -58,20 +58,6 @@ const createPages: GatsbyNode["createPages"] = async ({
       });
     });
   }
-
-  // const filterCategory = result.data?.allContentfulPortfolio.nodes || [];
-
-  // if (filterCategory.length > 0) {
-  //   filterCategory.forEach((post) => {
-  //     createPage({
-  //       path: `/${post.category}/`,
-  //       component: categoryPost,
-  //       context: {
-  //         slug: post.slug,
-  //       },
-  //     });
-  //   });
-  // }
 };
 
 export { createPages };

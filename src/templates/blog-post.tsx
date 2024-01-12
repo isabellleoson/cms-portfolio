@@ -3,6 +3,62 @@ import { graphql, Link, PageProps } from "gatsby";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import Layout from "../components/Layout";
 import Navbar from "../components/Navbar";
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
+
+//Interfaces for single images
+interface GatsbyImageSource {
+  srcSet: string;
+  type: string;
+  sizes: string;
+}
+
+interface GatsbyImageData {
+  images: {
+    sources: GatsbyImageSource[];
+    fallback: {
+      src: String;
+      srcSet: String;
+      sizes: String;
+    };
+  };
+  layout: string;
+  width: number;
+  height: number;
+  backgroundColor: string;
+}
+
+interface images {
+  gatsbyImageData: GatsbyImageData;
+}
+
+// Interfaces for gallery images
+
+interface GatsbyGalleriSource {
+  srcSet: string;
+  type: string;
+  sizes: string;
+}
+
+interface GatsbyGalleriData {
+  galleri: {
+    sources: GatsbyGalleriSource[];
+    fallback: {
+      src: String;
+      srcSet: String;
+      sizes: String;
+    };
+  };
+  layout: string;
+  width: number;
+  height: number;
+  backgroundColor: string;
+}
+
+interface galleri {
+  gatsbyImageData: GatsbyGalleriData;
+}
+
+// Interface for all the contentful data
 
 interface BlogProps {
   titel: string;
@@ -10,16 +66,16 @@ interface BlogProps {
   underrubrik: string;
   link: string;
   image: {
-    url: string;
+    url: string | null;
   };
   beskrivning: {
     raw: string;
   };
   bild: {
-    url: string;
+    gatsbyImageData: images;
   };
   galleri: {
-    url: string | null;
+    gatsbyImageData: galleri;
     description: string | null;
   };
 }
@@ -30,6 +86,12 @@ interface QueryResult {
 
 const Blog: React.FC<PageProps<QueryResult>> = ({ data }) => {
   const portfolio = data.contentfulPortfolio;
+
+  const imageData = data.contentfulPortfolio.bild;
+  const image = getImage(imageData);
+
+  const galleriData = data.contentfulPortfolio.galleri;
+  const galleri = getImage(galleriData);
 
   const divStyle = {
     height: "80vh",
@@ -61,28 +123,21 @@ const Blog: React.FC<PageProps<QueryResult>> = ({ data }) => {
 
             {portfolio.bild && (
               <div className="max-w-md p-6 shadow-xl">
-                <img
-                  style={divHight}
-                  src={portfolio.bild.url}
-                  alt=""
-                  className="max-w-full shadow-xl p-2 mt-2"
-                />
-              </div>
-            )}
-            {portfolio.image && (
-              <div className="max-w-md p-2 shadow-xl">
-                <img
-                  src={portfolio.image.url}
-                  alt=""
-                  className="max-w-full shadow-xl p-2 mt-2"
-                />
+                {image && (
+                  <GatsbyImage
+                    className="max-w-full shadow-lg p-2"
+                    style={divHight}
+                    image={image}
+                    alt=""
+                  />
+                )}
               </div>
             )}
           </div>
           <div style={bgColor} className="flex justify-end">
-            <p className="m-2 w-1/2 text-end">
+            <div className="m-2 w-1/2 text-end">
               {documentToReactComponents(JSON.parse(portfolio.beskrivning.raw))}
-            </p>
+            </div>
           </div>
           <Link to={portfolio.link}>{portfolio.link}</Link>
 
@@ -90,16 +145,19 @@ const Blog: React.FC<PageProps<QueryResult>> = ({ data }) => {
             {Array.isArray(portfolio.galleri) &&
               portfolio.galleri.map((image, index) => (
                 <div className="w-1/2 bg-white border border-gray-200 rounded-lg shadow-md m-2">
-                  <img
-                    className="rounded-t-lg"
-                    key={index}
-                    src={image.url}
-                    alt=""
-                  />
+                  {galleri ? (
+                    <GatsbyImage
+                      className="max-w-full shadow-lg p-2"
+                      style={divHight}
+                      image={galleri}
+                      alt=""
+                    />
+                  ) : null}
+
                   {image.description && (
-                    <p className="p-2 font-normal text-gray-700 text-center">
+                    <div className="p-2 font-normal text-gray-700 text-center">
                       {image.description}
-                    </p>
+                    </div>
                   )}
                 </div>
               ))}
@@ -126,11 +184,11 @@ export const pageQuery = graphql`
       }
       underrubrik
       galleri {
-        url
+        gatsbyImageData
         description
       }
       bild {
-        url
+        gatsbyImageData
       }
     }
   }
