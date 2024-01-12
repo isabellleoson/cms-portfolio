@@ -2,27 +2,53 @@ import React from "react";
 import { Link, StaticQuery, graphql } from "gatsby";
 import Search from "./Search";
 
+const LinkStyle = {};
+
 const Navigation = () => (
-  <>
-    <nav className="">
+  <div className="flex items-center ">
+    <nav className="flex-1">
       <ul className="flex pt-2 space-x-10 justify-center">
         <li className="">
-          <Link to="/" className="">
+          <Link
+            to="/"
+            className=""
+            activeStyle={{
+              fontWeight: "bold",
+            }}
+          >
             Home
           </Link>
         </li>
         <li>
-          <Link to="/Category" className="">
+          <Link
+            activeStyle={{
+              fontWeight: "bold",
+            }}
+            to="/Category"
+            className=""
+          >
             Portfolio
           </Link>
         </li>
         <li className="">
-          <Link to="/Resume" className="">
+          <Link
+            activeStyle={{
+              fontWeight: "bold",
+            }}
+            to="/Resume"
+            className=""
+          >
             Resumé
           </Link>
         </li>
         <li className="">
-          <Link to="/Contact" className="">
+          <Link
+            activeStyle={{
+              fontWeight: "bold",
+            }}
+            to="/Contact"
+            className=""
+          >
             Contact
           </Link>
         </li>
@@ -47,6 +73,6 @@ const Navigation = () => (
         )}
       />
     </div>
-  </>
+  </div>
 );
 export default Navigation;
