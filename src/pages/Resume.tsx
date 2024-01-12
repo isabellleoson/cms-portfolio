@@ -23,6 +23,19 @@ interface PortfolioQuery {
   };
 }
 
+const redColor = {
+  backgroundColor: "#FCFF72",
+  //   color: "white"
+};
+
+// const bgColor = {
+//   backgroundColor: {
+//     red: "#791717",
+//     pink: "#FFD0F5",
+//     yellow: "#FCFF72",
+//   },
+// };
+
 const Category: React.FC<PageProps<PortfolioQuery>> = (props) => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(
     "About",
@@ -57,10 +70,13 @@ const Category: React.FC<PageProps<PortfolioQuery>> = (props) => {
             {filteredPosts().map(({ node }, index) => (
               <>
                 <div className="flex">
-                  <ul className="flex-3 p-6 h-full font-medium bg-neutral-200">
+                  <ul
+                    // style={redColor}
+                    className="flex-3 p-6 h-full font-medium shadow-md rounded-b-full bg-opacity-90 bg-[#FCFF72]"
+                  >
                     {categories.map((category, index) => (
                       <li
-                        className="text-lg hover:text-gray-600"
+                        className="text-lg text-stone-800 hover:text-stone-600"
                         key={`${index}`}
                       >
                         <button onClick={() => setSelectedCategory(category)}>
