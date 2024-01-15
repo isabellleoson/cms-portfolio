@@ -52,10 +52,10 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({
           <GatsbyImage alt="front image for portfolio project" image={image} />
         )}
         <div className="p-5">
-          <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+          <h1 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
             {title}
-          </h5>
-          <h6>{underrubrik}</h6>
+          </h1>
+          <h2>{underrubrik}</h2>
           <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
             {description}
           </p>

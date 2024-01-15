@@ -101,7 +101,7 @@ const Portfolio: React.FC<PageProps<PortfolioQuery>> = (props) => {
   console.log("filteredPosts:", filteredPosts());
 
   return (
-    <Layout >
+    <Layout>
       <Navbar />
 
       <main className="">
@@ -126,6 +126,7 @@ const Portfolio: React.FC<PageProps<PortfolioQuery>> = (props) => {
             <>
               <div key={index}>
                 <PortfolioPage
+                  key={node.slug}
                   slug={node.slug}
                   title={node.titel}
                   underrubrik={node.underrubrik}
