@@ -38,7 +38,7 @@ const About: React.FC<PageProps<QueryResult>> = ({ data }) => {
 
   return (
     <>
-      <Layout pageTitle="">
+      <Layout>
         <div className="p-6">
           <h1 className="mb-4 text-center font-bold">{about.titel}</h1>
           <span>
