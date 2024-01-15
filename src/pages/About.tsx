@@ -16,7 +16,7 @@ interface AboutProps {
 }
 
 interface QueryResult {
-  contentfulPages: AboutProps;
+  contentfulResumePages: AboutProps;
 }
 
 const options = {
@@ -34,7 +34,7 @@ const options = {
 };
 
 const About: React.FC<PageProps<QueryResult>> = ({ data }) => {
-  const about = data.contentfulPages;
+  const about = data.contentfulResumePages;
 
   return (
     <>
@@ -52,7 +52,7 @@ const About: React.FC<PageProps<QueryResult>> = ({ data }) => {
 
 export const pageQuery = graphql`
   query MyQuery {
-    contentfulPages(slug: { eq: "about" }) {
+    contentfulResumePages(slug: { eq: "about" }) {
       richText {
         raw
       }
