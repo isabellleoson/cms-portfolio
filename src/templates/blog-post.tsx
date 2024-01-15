@@ -4,6 +4,7 @@ import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import Layout from "../components/Layout";
 import Navbar from "../components/Navbar";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
+import styled from "styled-components";
 
 //Interfaces for single images
 interface GatsbyImageSource {
@@ -91,11 +92,40 @@ const Blog: React.FC<PageProps<QueryResult>> = ({ data }) => {
   const image = getImage(imageData);
 
   const galleriData = data.contentfulPortfolio.galleri;
-  const galleri = getImage(galleriData);
 
   const divStyle = {
     height: "80vh",
   };
+
+  const GalleryContainer = styled.div`
+    @media (min-width: 600px) {
+      width: 500px;
+    }
+    @media (in-width: 800px) {
+      width: 500px;
+    }
+    @media (min-width: 400px) {
+      width: 500px;
+      flex-wrap: wrap;
+      display: flex;
+    }
+  `;
+
+  const OutsideGalleryContainer = styled.div`
+    @media (min-width: 600px) {
+      flex-wrap: wrap;
+      display: flex;
+    }
+    @media (min-width: 800px) {
+      flex-wrap: wrap;
+      display: flex;
+    }
+    @media (min-width: 400px) {
+      width: 500px;
+      flex-wrap: wrap;
+      display: flex;
+    }
+  `;
 
   const divHight = {
     maxWidth: "23vw",
@@ -107,7 +137,7 @@ const Blog: React.FC<PageProps<QueryResult>> = ({ data }) => {
 
   const bgColor = {
     backgroundColor: "rgba(126, 111, 78, 0.25)",
-    padding: "30px",
+    padding: "50px",
   };
 
   return (
@@ -115,53 +145,49 @@ const Blog: React.FC<PageProps<QueryResult>> = ({ data }) => {
       <Layout pageTitle="">
         <Navbar />
         <main className="flex flex-col items-center pl-6 pr-6">
-          <div style={divStyle} className="flex space-x-10 items-center mb-4">
+          <div className="flex space-x-10 items-center mb-4">
             <div className="mr-6 ml-6 text-center items-center justify-center">
-              <h1 className="font-bold mb-2 text-2xl">{portfolio.titel}</h1>
-              <h2 className="">{portfolio.underrubrik}</h2>
+              <h1 className="font-bold mb-2 text-2xl sm:text-sm md:text-sm ">
+                {portfolio.titel}
+              </h1>
+              <h2 className="sm:text-sm md:text-sm">{portfolio.underrubrik}</h2>
             </div>
 
             {portfolio.bild && (
-              <div className="max-w-md p-6 shadow-xl">
+              <div className="p-6 shadow-xl max-w-sm lg:max-w-sm xl:max-w-sm">
                 {image && (
-                  <GatsbyImage
-                    className="max-w-full shadow-lg p-2"
-                    style={divHight}
-                    image={image}
-                    alt=""
-                  />
+                  <GatsbyImage className="shadow-lg p-2" image={image} alt="" />
                 )}
               </div>
             )}
           </div>
           <div style={bgColor} className="flex justify-end">
-            <div className="m-2 w-1/2 text-end">
+            <div className="m-2 w-1/2 sm:w-full sm:text-sm text-end">
               {documentToReactComponents(JSON.parse(portfolio.beskrivning.raw))}
             </div>
           </div>
           <Link to={portfolio.link}>{portfolio.link}</Link>
 
-          <div className="max-w-xs flex">
-            {Array.isArray(portfolio.galleri) &&
-              portfolio.galleri.map((image, index) => (
-                <div className="w-1/2 bg-white border border-gray-200 rounded-lg shadow-md m-2">
-                  {galleri ? (
+          <OutsideGalleryContainer className="">
+            {Array.isArray(galleriData) &&
+              galleriData.map((image, index) => (
+                <GalleryContainer key={index}>
+                  {image.gatsbyImageData ? (
                     <GatsbyImage
-                      className="max-w-full shadow-lg p-2"
-                      style={divHight}
-                      image={galleri}
+                      className="shadow-lg w-full flex flex-wrap"
+                      image={image.gatsbyImageData}
+                      //   style={divHight}
                       alt=""
                     />
                   ) : null}
-
                   {image.description && (
                     <div className="p-2 font-normal text-gray-700 text-center">
                       {image.description}
                     </div>
                   )}
-                </div>
+                </GalleryContainer>
               ))}
-          </div>
+          </OutsideGalleryContainer>
         </main>
       </Layout>
     </>

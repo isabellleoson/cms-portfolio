@@ -2,8 +2,6 @@ import React from "react";
 import { Link, StaticQuery, graphql } from "gatsby";
 import Search from "./Search";
 
-const LinkStyle = {};
-
 const Navigation = () => (
   <div className="flex items-center ">
     <nav className="flex-1">
@@ -24,7 +22,7 @@ const Navigation = () => (
             activeStyle={{
               fontWeight: "bold",
             }}
-            to="/Category"
+            to="/Portfolio"
             className=""
           >
             Portfolio

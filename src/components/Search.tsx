@@ -46,16 +46,20 @@ const Search: React.FC<SearchProps> = ({ searchIndex }) => {
 
   return (
     <div>
-      <input
-        type="text"
-        value={query}
-        onChange={handleSearch}
-        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block p-2.5"
-      />
+      <label htmlFor={query}>
+        <input
+          type="text"
+          value={query}
+          onChange={handleSearch}
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block p-2.5"
+        />
+      </label>
       <ul>
         {results.map((page) => (
           <li key={page.slug}>
-            <Link className="p-2 text-base font-extrabold" to={"/" + page.slug}>{page.slug}</Link>
+            <Link className="p-2 text-base font-extrabold" to={"/" + page.slug}>
+              {page.slug}
+            </Link>
             {/* {": " + page.tags.join(`,`)} */}
           </li>
         ))}

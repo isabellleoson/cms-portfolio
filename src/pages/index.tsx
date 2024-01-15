@@ -2,15 +2,31 @@ import React from "react";
 import { graphql, PageProps, HeadFC, Link } from "gatsby";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import Layout from "../components/Layout";
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
 
-interface GatsbyImage {
+interface GatsbyImageSource {
+  srcSet: string;
+  type: string;
+  sizes: string;
+}
+
+interface GatsbyImageData {
   images: {
-    sources: {
-      srcSet: string | null;
-      type: string | null;
-      sizes: string | null;
+    sources: GatsbyImageSource[];
+    fallback: {
+      src: String;
+      srcSet: String;
+      sizes: String;
     };
   };
+  layout: string;
+  width: number;
+  height: number;
+  backgroundColor: string;
+}
+
+interface images {
+  gatsbyImageData: GatsbyImageData;
 }
 
 interface BlogProps {
@@ -20,10 +36,10 @@ interface BlogProps {
     raw: string;
   };
   backgroundImage: {
-    gatsbyImageData: GatsbyImage;
+    gatsbyImageData: images;
   };
   image: {
-    gatsbyImageData: GatsbyImage;
+    gatsbyImageData: images;
   };
 }
 
@@ -34,19 +50,24 @@ interface QueryResult {
 const Index: React.FC<PageProps<QueryResult>> = ({ data }) => {
   const portfolio = data.contentfulPages;
 
+  const imageData = data.contentfulPages.backgroundImage;
+  const image = getImage(imageData);
+
   return (
     <>
       <Layout pageTitle="">
         {portfolio.backgroundImage ? (
           <main
-            style={{
-              backgroundImage: `url(${portfolio.backgroundImage.gatsbyImageData})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              // minHeight: "500px",
-            }}
+            // style={{
+            //   backgroundImage: `url(${image})`,
+            //   backgroundSize: "cover",
+            //   backgroundPosition: "center",
+            //   minHeight: "500px",
+            // }}
             className="flex justify-end p-6 h-screen"
           >
+            {image && <GatsbyImage image={image} alt="" />}
+
             <div className="p-2 text-end items-end flex flex-col">
               {/* <h1 className="m-2">{portfolio.titel}</h1> */}
 

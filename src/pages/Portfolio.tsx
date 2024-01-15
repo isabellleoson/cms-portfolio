@@ -1,68 +1,167 @@
+import React, { useEffect, useState } from "react";
 import { graphql, PageProps } from "gatsby";
-import * as React from "react";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import PortfolioPage from "../components/PortfolioPage";
 import Layout from "../components/Layout";
+import PortfolioPage from "../components/PortfolioPage";
+import Navbar from "../components/Navbar";
+import { getImage } from "gatsby-plugin-image";
 
-interface PortfolioProps {
-  titel: string;
+interface GatsbyImageSource {
+  srcSet: string;
+  type: string;
+  sizes: string;
+}
+
+interface GatsbyImageData {
+  images: {
+    sources: GatsbyImageSource[];
+    fallback: {
+      src: String;
+      srcSet: String;
+      sizes: String;
+    };
+  };
+  layout: string;
+  width: number;
+  height: number;
+  backgroundColor: string;
+}
+
+interface images {
+  gatsbyImageData: GatsbyImageData;
+}
+
+interface PortfolioNode {
+  id: string;
   slug: string;
+  category: string;
+  categoryFrameworks: string;
   underrubrik: string;
   beskrivning: {
     raw: string;
   };
+  titel: string;
   bild: {
-    file: {
-      url: string | null;
-    };
+    gatsbyImageData: images;
   };
 }
 
-interface QueryResult {
+interface PortfolioQuery {
   allContentfulPortfolio: {
-    nodes: PortfolioProps[];
+    edges: {
+      node: PortfolioNode;
+    }[];
   };
 }
 
-const Portfolio: React.FC<PageProps<QueryResult>> = ({ data }) => {
+const Portfolio: React.FC<PageProps<PortfolioQuery>> = (props) => {
+  const [selectedCategory, setSelectedCategory] = useState({
+    category: "All",
+    categoryFrameworks: "All",
+  });
+  const allPosts = props.data.allContentfulPortfolio.edges;
+
+  const imageData = props.data.allContentfulPortfolio;
+  const image = getImage(imageData);
+
+  const categories = [
+    "Alla projekt",
+    ...new Set(allPosts.map((post) => post.node.category)),
+    ...new Set(allPosts.map((post) => post.node.categoryFrameworks)),
+  ];
+
+  const handleCategoryChange = (
+    event: React.ChangeEvent<HTMLSelectElement>,
+  ) => {
+    const selectedCategory = event.target.value;
+    const selectedcategoryFrameworks = event.target.value;
+
+    setSelectedCategory({
+      category: selectedCategory,
+      categoryFrameworks: selectedcategoryFrameworks,
+    });
+  };
+
+  const filteredPosts = () => {
+    if (
+      selectedCategory.category === "All" ||
+      selectedCategory.categoryFrameworks === "All"
+    ) {
+      return allPosts;
+    } else {
+      return allPosts.filter(
+        (post) =>
+          post.node.category === selectedCategory.category ||
+          post.node.categoryFrameworks === selectedCategory.categoryFrameworks,
+      );
+    }
+  };
+
+  console.log("selectedCategory:", selectedCategory);
+  console.log("filteredPosts:", filteredPosts());
+
   return (
-    <>
-      <Layout pageTitle="">
-        <main className="flex flex-wrap justify-center mt-2 mb-2 gap-3">
-          {data.allContentfulPortfolio.nodes.map((portfolio) => (
-            <PortfolioPage
-              slug={portfolio.slug}
-              title={portfolio.titel}
-              underrubrik={portfolio.underrubrik}
-              imageUrl={portfolio.bild ? portfolio.bild.file.url : null}
-              description={
-                ""
-                  ? documentToReactComponents(
-                      JSON.parse(portfolio.beskrivning.raw),
-                    )
-                  : null
-              }
-            />
+    <Layout pageTitle="">
+      <Navbar />
+
+      <main className="">
+        <div className="flex justify-end">
+          <h1>Projects</h1>
+          <label htmlFor="">
+            <select
+              className="p-2 m-2 rounded-lg shadow-md"
+              onChange={(e) => handleCategoryChange(e)}
+            >
+              {categories.map((category, index) => (
+                <option key={`${index}`} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+        <div className="flex flex-wrap justify-center space-x-4 mt-2">
+          {filteredPosts().map(({ node }, index) => (
+            <>
+              <div key={index}>
+                <PortfolioPage
+                  slug={node.slug}
+                  title={node.titel}
+                  underrubrik={node.underrubrik}
+                  imageData={node.bild && node.bild}
+                  description={
+                    ""
+                      ? documentToReactComponents(
+                          JSON.parse(node.beskrivning.raw),
+                        )
+                      : null
+                  }
+                />
+              </div>
+            </>
           ))}
-        </main>
-      </Layout>
-    </>
+        </div>
+      </main>
+    </Layout>
   );
 };
 
-export const query = graphql`
-  query MyQuery {
+export const pageQuery = graphql`
+  query FilterQuery {
     allContentfulPortfolio {
-      nodes {
-        slug
-        underrubrik
-        beskrivning {
-          raw
-        }
-        titel
-        bild {
-          file {
-            url
+      edges {
+        node {
+          slug
+          id
+          category
+          categoryFrameworks
+          underrubrik
+          beskrivning {
+            raw
+          }
+          titel
+          bild {
+            gatsbyImageData
           }
         }
       }

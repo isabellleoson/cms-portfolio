@@ -3,6 +3,31 @@ import { graphql, PageProps } from "gatsby";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import Layout from "../components/Layout";
 
+interface GatsbyImageSource {
+  srcSet: string;
+  type: string;
+  sizes: string;
+}
+
+interface GatsbyImageData {
+  images: {
+    sources: GatsbyImageSource[];
+    fallback: {
+      src: String;
+      srcSet: String;
+      sizes: String;
+    };
+  };
+  layout: string;
+  width: number;
+  height: number;
+  backgroundColor: string;
+}
+
+interface images {
+  gatsbyImageData: GatsbyImageData;
+}
+
 interface PortfolioNode {
   slug: string;
   category: string;
@@ -11,7 +36,7 @@ interface PortfolioNode {
   };
   titel: string;
   image: {
-    url: string | null;
+    gatsbyImageData: images;
   };
 }
 
@@ -51,20 +76,12 @@ const Category: React.FC<PageProps<PortfolioQuery>> = (props) => {
     return allPosts.filter((post) => post.node.category === selectedCategory);
   };
 
-  const backgroundImageUrl =
-    props.data.allContentfulPages.edges[0]?.node?.image?.url;
+  // const backgroundImageUrl =
+  //   props.data.allContentfulPages.edges[0]?.node?.image?.url;
 
   return (
     <Layout pageTitle="">
-      <main
-        style={{
-          backgroundImage: `url(${backgroundImageUrl})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          minHeight: "500px",
-        }}
-        className="ml-6 mr-6"
-      >
+      <main className="ml-6 mr-6">
         <div className="">
           <div className="">
             {filteredPosts().map(({ node }, index) => (
@@ -112,7 +129,7 @@ export const pageQuery = graphql`
       edges {
         node {
           image {
-            url
+            gatsbyImageData
           }
           richText {
             raw
