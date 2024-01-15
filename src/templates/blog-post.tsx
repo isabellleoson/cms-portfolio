@@ -196,7 +196,7 @@ const Blog: React.FC<PageProps<QueryResult>> = ({ data }) => {
 export default Blog;
 
 export const pageQuery = graphql`
-  query MyQuery($slug: String!) {
+  query MyTemplateQuery($slug: String!) {
     contentfulPortfolio(slug: { eq: $slug }) {
       slug
       titel

@@ -5,13 +5,10 @@ import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import { Node } from "@contentful/rich-text-types";
 
 interface AboutProps {
-  titel: string;
+  title: string;
   slug: string;
-  richText: {
+  description: {
     raw: string;
-  };
-  image: {
-    url: string | null;
   };
 }
 
@@ -40,9 +37,12 @@ const About: React.FC<PageProps<QueryResult>> = ({ data }) => {
     <>
       <Layout>
         <div className="p-6">
-          <h1 className="mb-4 text-center font-bold">{about.titel}</h1>
+          <h1 className="mb-4 text-center font-bold">{about.title}</h1>
           <span>
-            {documentToReactComponents(JSON.parse(about.richText.raw), options)}
+            {documentToReactComponents(
+              JSON.parse(about.description.raw),
+              options,
+            )}
           </span>
         </div>
       </Layout>
@@ -53,14 +53,11 @@ const About: React.FC<PageProps<QueryResult>> = ({ data }) => {
 export const pageQuery = graphql`
   query MyQuery {
     contentfulResumePages(slug: { eq: "about" }) {
-      richText {
+      description {
         raw
       }
-      titel
+      title
       slug
-      image {
-        url
-      }
     }
   }
 `;

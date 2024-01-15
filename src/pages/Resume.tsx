@@ -3,31 +3,6 @@ import { graphql, PageProps } from "gatsby";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import Layout from "../components/Layout";
 
-interface GatsbyImageSource {
-  srcSet: string;
-  type: string;
-  sizes: string;
-}
-
-interface GatsbyImageData {
-  images: {
-    sources: GatsbyImageSource[];
-    fallback: {
-      src: String;
-      srcSet: String;
-      sizes: String;
-    };
-  };
-  layout: string;
-  width: number;
-  height: number;
-  backgroundColor: string;
-}
-
-interface images {
-  gatsbyImageData: GatsbyImageData;
-}
-
 interface PortfolioNode {
   slug: string;
   category: string;
@@ -35,9 +10,6 @@ interface PortfolioNode {
     raw: string;
   };
   title: string;
-  image: {
-    gatsbyImageData: images;
-  };
 }
 
 interface PortfolioQuery {
@@ -47,19 +19,6 @@ interface PortfolioQuery {
     }[];
   };
 }
-
-const redColor = {
-  backgroundColor: "#FCFF72",
-  //   color: "white"
-};
-
-// const bgColor = {
-//   backgroundColor: {
-//     red: "#791717",
-//     pink: "#FFD0F5",
-//     yellow: "#FCFF72",
-//   },
-// };
 
 const Category: React.FC<PageProps<PortfolioQuery>> = (props) => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(
@@ -130,12 +89,12 @@ export const pageQuery = graphql`
     allContentfulResumePages {
       edges {
         node {
-          category
           description {
             raw
           }
           slug
           title
+          category
         }
       }
     }
