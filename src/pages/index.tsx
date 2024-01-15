@@ -3,6 +3,7 @@ import { graphql, PageProps, HeadFC, Link } from "gatsby";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import Layout from "../components/Layout";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
+import styled from "styled-components";
 
 interface GatsbyImageSource {
   srcSet: string;
@@ -51,28 +52,35 @@ const Index: React.FC<PageProps<QueryResult>> = ({ data }) => {
   const imageData = data.contentfulPages.image;
   const image = getImage(imageData);
 
+  const RichTextDiv = styled.div`
+    @media (max-width: 700px) {
+      font-size: 20px;
+    }
+  `;
+
+  const ImgDiv = styled.div`
+    @media (max-width: 700px) {
+      width: 100%;
+      height: 100%;
+    }
+  `;
+
   return (
     <>
-      <Layout pageTitle="">
+      <Layout>
         {portfolio.image ? (
-          <main
-            // style={{
-            //   backgroundImage: `url(${image})`,
-            //   backgroundSize: "cover",
-            //   backgroundPosition: "center",
-            //   minHeight: "500px",
-            // }}
-            className="flex justify-end p-6 h-screen"
-          >
-            {image && (
-              <GatsbyImage image={image} alt={portfolio.image.description} />
-            )}
+          <main className="flex p-6">
+            <ImgDiv className="p-6 flex-1">
+              {image && (
+                <GatsbyImage image={image} alt={portfolio.image.description} />
+              )}
+            </ImgDiv>
 
-            <div className="p-2 text-end items-end flex flex-col">
-              <h1 className="m-2 text-5xl">{portfolio.titel}</h1>
+            <div className="flex-1 text-end space-y-8 items-end flex flex-col sm:text-sm">
+              <h1 className="text-5xl font-semibold">{portfolio.titel}</h1>
 
               {portfolio.richText && (
-                <div
+                <RichTextDiv
                   className="text-4xl tracking-wider 
                 bg-[#F6F1E3] bg-opacity-90 p-6"
                 >
@@ -81,17 +89,17 @@ const Index: React.FC<PageProps<QueryResult>> = ({ data }) => {
                       JSON.parse(portfolio.richText.raw),
                     )}
                   </p>
-                </div>
+                </RichTextDiv>
               )}
 
-              <div className="space-x-5 mt-5 text-4xl bg-rose-200 bg-opacity-95 p-6">
+              <RichTextDiv className="space-x-5 text-3xl bg-rose-200 bg-opacity-95 p-6 w-full font-semibold tracking-wider">
                 <Link to="/Category" className="">
                   Portfolio
                 </Link>
                 <Link to="/Resume" className="">
                   Resumé
                 </Link>
-              </div>
+              </RichTextDiv>
             </div>
           </main>
         ) : null}

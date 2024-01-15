@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 import { graphql, Link, PageProps } from "gatsby";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import Layout from "../components/Layout";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/NavbarPortfolioProjects";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import styled from "styled-components";
 
@@ -142,7 +142,7 @@ const Blog: React.FC<PageProps<QueryResult>> = ({ data }) => {
 
   return (
     <>
-      <Layout pageTitle="">
+      <Layout>
         <Navbar />
         <main className="flex flex-col items-center pl-6 pr-6">
           <div className="flex space-x-10 items-center mb-4">

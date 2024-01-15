@@ -2,7 +2,32 @@ import { PageProps, graphql } from "gatsby";
 import React from "react";
 import Layout from "../components/Layout";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import { Node } from "@contentful/rich-text-types";
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
+
+interface GatsbyImageSource {
+  srcSet: string;
+  type: string;
+  sizes: string;
+}
+
+interface GatsbyImageData {
+  images: {
+    sources: GatsbyImageSource[];
+    fallback: {
+      src: String;
+      srcSet: String;
+      sizes: String;
+    };
+  };
+  layout: string;
+  width: number;
+  height: number;
+  backgroundColor: string;
+}
+
+interface images {
+  gatsbyImageData: GatsbyImageData;
+}
 
 interface ContactProps {
   titel: string;
@@ -11,7 +36,8 @@ interface ContactProps {
     raw: string;
   };
   image: {
-    url: string | null;
+    gatsbyImageData: images;
+    description: string;
   };
 }
 
@@ -19,39 +45,26 @@ interface QueryResult {
   contentfulPages: ContactProps;
 }
 
-const options = {
-  renderNode: {
-    "embedded-entry-block": (node: Node) => {
-      console.log("Embedded Entry Node:", node);
-
-      // Update this based on your actual node structure
-      const { target } = node.data;
-
-      if (target && target.fields) {
-        // Customize this according to your content structure
-        return <a href={`/${target.fields.slug}`}>{target.fields.title}</a>;
-      }
-
-      // Default behavior if the structure is not as expected
-      return null;
-    },
-  },
-};
-
 const Contact: React.FC<PageProps<QueryResult>> = ({ data }) => {
   const contact = data.contentfulPages;
 
+  const imageData = data.contentfulPages.image;
+  const image = getImage(imageData);
+
   return (
     <>
-      <Layout pageTitle="">
-        <div className="p-6">
-          <h1 className="mb-4 text-center font-bold">{contact.titel}</h1>
+      <Layout>
+        {/* <h1 className="m-4 text-center font-bold">{contact.titel}</h1> */}
+
+        <div className="p-6 flex items-center justify-center space-x-10">
+          <div className="max-w-md">
+            {image && (
+              <GatsbyImage image={image} alt={contact.image.description} />
+            )}
+          </div>
           {contact.richText ? (
             <span>
-              {documentToReactComponents(
-                JSON.parse(contact.richText.raw),
-                options,
-              )}
+              {documentToReactComponents(JSON.parse(contact.richText.raw))}
             </span>
           ) : null}
         </div>
@@ -69,7 +82,8 @@ export const pageQuery = graphql`
       titel
       slug
       image {
-        url
+        gatsbyImageData
+        description
       }
     }
   }

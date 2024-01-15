@@ -3,7 +3,7 @@ import { graphql, PageProps } from "gatsby";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import Layout from "../components/Layout";
 import PortfolioPage from "../components/PortfolioPage";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/NavbarPortfolioProjects";
 import { getImage } from "gatsby-plugin-image";
 
 interface GatsbyImageSource {
@@ -101,7 +101,7 @@ const Portfolio: React.FC<PageProps<PortfolioQuery>> = (props) => {
   console.log("filteredPosts:", filteredPosts());
 
   return (
-    <Layout pageTitle="">
+    <Layout >
       <Navbar />
 
       <main className="">
