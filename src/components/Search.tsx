@@ -46,8 +46,9 @@ const Search: React.FC<SearchProps> = ({ searchIndex }) => {
 
   return (
     <div>
-      <label htmlFor={query}>
+      <label htmlFor="search">
         <input
+          id="search"
           type="text"
           value={query}
           onChange={handleSearch}

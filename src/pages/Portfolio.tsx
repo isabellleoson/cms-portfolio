@@ -107,8 +107,9 @@ const Portfolio: React.FC<PageProps<PortfolioQuery>> = (props) => {
       <main className="">
         <div className="flex justify-end">
           <h1>Projects</h1>
-          <label htmlFor="">
+          <label htmlFor="categories">
             <select
+              id="categories"
               className="p-2 m-2 rounded-lg shadow-md"
               onChange={(e) => handleCategoryChange(e)}
             >

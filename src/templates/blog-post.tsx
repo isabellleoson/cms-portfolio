@@ -176,8 +176,7 @@ const Blog: React.FC<PageProps<QueryResult>> = ({ data }) => {
                     <GatsbyImage
                       className="shadow-lg w-full flex flex-wrap"
                       image={image.gatsbyImageData}
-                      //   style={divHight}
-                      alt=""
+                      alt={`image with description: ${image.description}`}
                     />
                   ) : null}
                   {image.description && (

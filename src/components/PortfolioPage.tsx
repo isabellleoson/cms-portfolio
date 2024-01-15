@@ -48,7 +48,9 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({
   return (
     <a href={`/${slug}`}>
       <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-md m-2">
-        {image && <GatsbyImage alt="" image={image} />}
+        {image && (
+          <GatsbyImage alt="front image for portfolio project" image={image} />
+        )}
         <div className="p-5">
           <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
             {title}

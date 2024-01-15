@@ -35,11 +35,9 @@ interface BlogProps {
   richText: {
     raw: string;
   };
-  backgroundImage: {
-    gatsbyImageData: images;
-  };
   image: {
     gatsbyImageData: images;
+    description: string;
   };
 }
 
@@ -50,13 +48,13 @@ interface QueryResult {
 const Index: React.FC<PageProps<QueryResult>> = ({ data }) => {
   const portfolio = data.contentfulPages;
 
-  const imageData = data.contentfulPages.backgroundImage;
+  const imageData = data.contentfulPages.image;
   const image = getImage(imageData);
 
   return (
     <>
       <Layout pageTitle="">
-        {portfolio.backgroundImage ? (
+        {portfolio.image ? (
           <main
             // style={{
             //   backgroundImage: `url(${image})`,
@@ -66,14 +64,16 @@ const Index: React.FC<PageProps<QueryResult>> = ({ data }) => {
             // }}
             className="flex justify-end p-6 h-screen"
           >
-            {image && <GatsbyImage image={image} alt="" />}
+            {image && (
+              <GatsbyImage image={image} alt={portfolio.image.description} />
+            )}
 
             <div className="p-2 text-end items-end flex flex-col">
-              {/* <h1 className="m-2">{portfolio.titel}</h1> */}
+              <h1 className="m-2 text-5xl">{portfolio.titel}</h1>
 
               {portfolio.richText && (
                 <div
-                  className="text-5xl tracking-wider 
+                  className="text-4xl tracking-wider 
                 bg-[#F6F1E3] bg-opacity-90 p-6"
                 >
                   <p className="drop-shadow-lg">
@@ -92,10 +92,6 @@ const Index: React.FC<PageProps<QueryResult>> = ({ data }) => {
                   Resumé
                 </Link>
               </div>
-
-              {/* <p className="w-4/12">
-              {documentToReactComponents(JSON.parse(portfolio.text.text))}
-            </p> */}
             </div>
           </main>
         ) : null}
@@ -112,11 +108,9 @@ export const pageQuery = graphql`
       richText {
         raw
       }
-      backgroundImage {
-        gatsbyImageData
-      }
       image {
-        url
+        gatsbyImageData
+        description
       }
     }
   }
