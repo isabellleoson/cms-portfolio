@@ -21,7 +21,6 @@ const createPages: GatsbyNode["createPages"] = async ({
   const { createPage } = actions;
 
   const blogPost = path.resolve("./src/templates/blog-post.tsx");
-  const categoryPost = path.resolve("./src/templates/CategoryPage.tsx");
 
   const result = await graphql<ContentfulPortfolioQueryResult>(
     `
