@@ -32,11 +32,13 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   }, []);
   return (
     <>
-      <header className="pb-2 bg-rose-300 drop-shadow-md">
+      <head>
         <html lang="en" />
         <meta name="description" content="Portfolio page"></meta>
         <title>Portfolio</title>
         <link rel="canonical" href="http://mysite.com/example" />
+      </head>
+      <header className="pb-2 bg-rose-300 drop-shadow-md">
         {screenSize === "mobile" && <NavbarMobile />}
         {screenSize === "desktop" && <Navigation />}
       </header>
