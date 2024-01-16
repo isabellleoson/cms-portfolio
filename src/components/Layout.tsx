@@ -35,6 +35,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       <head>
         <html lang="en" />
         <meta charSet="utf-8"></meta>
+        <meta name="description" content="Portfolio page"></meta>
         <title>Portfolio</title>
         <link rel="canonical" href="http://mysite.com/example" />
       </head>
