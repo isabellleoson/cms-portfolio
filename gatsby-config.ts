@@ -50,21 +50,12 @@ const config: GatsbyConfig = {
     {
       resolve: "gatsby-source-contentful",
       options: {
-        accessToken: "6WLleVSIc8edQNFDWS9HhNZn6YvwGSZRAyqsNMP95bw",
-        spaceId: "ae0zxp0bjkyq",
+        accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
+        spaceId: process.env.CONTENTFUL_SPACE_ID,
       },
     },
-    {
-      resolve: `gatsby-plugin-sharp`,
-      options: {
-        defaults: {
-          formats: [`auto`, `webp`],
-          breakpoints: [800],
-          backgroundColor: `transparent`,
-        }
-      }
-    },
     "gatsby-plugin-image",
+    "gatsby-plugin-sharp",
     "gatsby-transformer-sharp",
     "gatsby-plugin-postcss",
     `gatsby-plugin-react-helmet`,

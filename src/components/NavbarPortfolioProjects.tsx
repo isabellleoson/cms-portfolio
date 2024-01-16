@@ -25,7 +25,7 @@ const Navbar = () => (
             data.allContentfulPortfolio.nodes.map((node) => (
               <li
                 key={node.slug}
-                className="text-stone-900 hover:text-stone-700 font-semibold"
+                className="text-stone-900 p-2 hover:text-stone-700 font-semibold"
               >
                 <Link to={`/${node.slug}`} className="">
                   {node.titel}

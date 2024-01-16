@@ -90,45 +90,41 @@ const Blog: React.FC<PageProps<QueryResult>> = ({ data }) => {
 
   const galleriData = data.contentfulPortfolio.galleri;
 
-  const divStyle = {
-    height: "80vh",
-  };
-
   const GalleryContainer = styled.div`
-  border: solid black 2px;
-  background-color: ;
-  width: 300px;
-  margin: 5px;
-  padding: 15px;
-    // @media (min-width: 600px) {
-    //   width: 500px;
-    // }
-    // @media (in-width: 800px) {
-    //   width: 500px;
-    // }
-    // @media (min-width: 400px) {
-    //   width: 500px;
-    //   flex-wrap: wrap;
-    //   display: flex;
-    // }
+    background-color: rgb(250, 244, 240);
+    width: 300px;
+    margin: 10px;
+    padding: 15px;
   `;
 
   const OutsideGalleryContainer = styled.div`
-    // @media (min-width: 600px) {
-    //   flex-wrap: wrap;
-    //   display: flex;
-    // }
-    // @media (min-width: 800px) {
-    //   flex-wrap: wrap;
-    //   display: flex;
-    // }
-    // @media (min-width: 400px) {
-    //   width: 500px;
-    //   flex-wrap: wrap;
-    //   display: flex;
-    // }
+    margin-left: 200px;
+    margin-right: 200px;
   `;
 
+  const HeadingDiv = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  `;
+
+  const FrontImageDiv = styled.div`
+    width: 250px;
+    margin: 15px;
+
+    @media (max-width: 600px) {
+      width: 300x;
+    }
+  `;
+
+  const TextHeadingDiv = styled.div`
+    margin: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content; center;
+    width: 400px;
+  `;
 
   const bgColor = {
     backgroundColor: "rgba(126, 111, 78, 0.25)",
@@ -140,22 +136,20 @@ const Blog: React.FC<PageProps<QueryResult>> = ({ data }) => {
       <Layout>
         <Navbar />
         <main className="flex flex-col items-center pl-6 pr-6">
-          <div className="flex space-x-10 items-center mb-4">
-            <div className="mr-6 ml-6 text-center items-center justify-center">
-              <h1 className="font-bold mb-2 text-2xl sm:text-sm md:text-sm ">
-                {portfolio.titel}
-              </h1>
-              <h2 className="sm:text-sm md:text-sm">{portfolio.underrubrik}</h2>
-            </div>
+          <HeadingDiv className="">
+            <TextHeadingDiv className="">
+              <h1 className="font-bold mb-6 text-5xl">{portfolio.titel}</h1>
+              <h2 className="text-center">{portfolio.underrubrik}</h2>
+            </TextHeadingDiv>
 
             {portfolio.bild && (
-              <div className="p-6 shadow-xl max-w-sm lg:max-w-sm xl:max-w-sm">
+              <FrontImageDiv className="">
                 {image && (
                   <GatsbyImage className="shadow-lg p-2" image={image} alt="" />
                 )}
-              </div>
+              </FrontImageDiv>
             )}
-          </div>
+          </HeadingDiv>
           <div style={bgColor} className="flex justify-end">
             <div className="m-2 w-1/2 sm:w-full sm:text-sm text-end">
               {documentToReactComponents(JSON.parse(portfolio.beskrivning.raw))}
@@ -163,7 +157,7 @@ const Blog: React.FC<PageProps<QueryResult>> = ({ data }) => {
           </div>
           <Link to={portfolio.link}>{portfolio.link}</Link>
 
-          <OutsideGalleryContainer className="flex-wrap flex justify-center">
+          <OutsideGalleryContainer className="flex-wrap flex justify-center items-baseline]">
             {Array.isArray(galleriData) &&
               galleriData.map((image, index) => (
                 <GalleryContainer className="" key={index}>
@@ -205,7 +199,7 @@ export const pageQuery = graphql`
         description
       }
       bild {
-        gatsbyImageData(width: 300)
+        gatsbyImageData
       }
     }
   }
