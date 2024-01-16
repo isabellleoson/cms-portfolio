@@ -10,10 +10,19 @@ if (process.env.NODE_ENV !== "production") {
 //   path: `.env${process.env.NODE_ENV}`,
 // });
 
+module.exports = {
+  siteMetadata: {
+    title: `Portfolio Isabell Leoson`,
+    description: `Portfolio project`,
+    siteUrl: `https://ileosonportfolio.netlify.app/`,
+  },
+};
+
 const config: GatsbyConfig = {
   siteMetadata: {
     title: `Portfolio`,
-    siteUrl: `https://www.yourdomain.tld`,
+    description: `Portfolio project`,
+    siteUrl: `https://ileosonportfolio.netlify.app/`,
   },
   // More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
   // If you use VSCode you can also use the GraphQL plugin

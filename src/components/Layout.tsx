@@ -1,25 +1,26 @@
 import * as React from "react";
-import { Link, useStaticQuery, graphql } from "gatsby";
+import { useStaticQuery, graphql, HeadFC } from "gatsby";
 import Navigation from "./navigation";
 import Footer from "./Footer";
 import NavbarMobile from "./NavbarMobile";
-// import Navbar from "./Navbar";
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children }) => {
-  const data = useStaticQuery(graphql`
-    query {
-      site {
-        siteMetadata {
-          title
-        }
+const data = useStaticQuery(graphql`
+  query {
+    site {
+      siteMetadata {
+        title
+        description
+        siteUrl
       }
     }
-  `);
+  }
+`);
 
+const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [screenSize, setScreenSize] = React.useState<string>("");
 
   React.useEffect(() => {
@@ -42,15 +43,10 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   }, []);
   return (
     <>
-      <title>{data.titel}</title>
       <header className="pb-2 bg-rose-300 drop-shadow-md">
-        {/* <Navbar /> */}
-        {/* <NavbarPages /> */}
         {screenSize === "mobile" && <NavbarMobile />}
         {screenSize === "desktop" && <Navigation />}
-        {/* {screenSize === "desktop" && <NavbarPages />} */}
       </header>
-
       {children}
       <footer className="bg-rose-200 bg-opacity-95">
         <Footer />
@@ -59,3 +55,5 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   );
 };
 export default Layout;
+
+export const Head: HeadFC = () => <div>{data}</div>;

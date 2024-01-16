@@ -1,5 +1,12 @@
 import * as React from "react";
-import { Link, HeadFC, PageProps, StaticQuery, graphql } from "gatsby";
+import {
+  Link,
+  HeadFC,
+  PageProps,
+  StaticQuery,
+  graphql,
+  useStaticQuery,
+} from "gatsby";
 import Search from "../components/Search";
 
 const pageStyles = {
@@ -16,6 +23,18 @@ const headingStyles = {
 const paragraphStyles = {
   marginBottom: 48,
 };
+
+const data = useStaticQuery(graphql`
+  query {
+    site {
+      siteMetadata {
+        title
+        description
+        siteUrl
+      }
+    }
+  }
+`);
 
 const NotFoundPage: React.FC<PageProps> = () => {
   return (
@@ -51,4 +70,4 @@ const NotFoundPage: React.FC<PageProps> = () => {
 
 export default NotFoundPage;
 
-export const Head: HeadFC = () => <title>Not found</title>;
+export const Head: HeadFC = () => <div>{data}</div>;
