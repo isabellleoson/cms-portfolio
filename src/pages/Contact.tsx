@@ -91,5 +91,5 @@ export const pageQuery = graphql`
 
 export default Contact;
 
-export const Head: HeadFC<PageProps<QueryResult>> = ({data}) => <title>{data.data.contentfulPages.titel}</title>;
+
 

@@ -64,5 +64,5 @@ export const pageQuery = graphql`
 
 export default About;
 
-export const Head: HeadFC<PageProps<QueryResult>> = ({data}) => <title>{data.data.contentfulResumePages.title}</title>;
+
 
