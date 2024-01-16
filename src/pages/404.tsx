@@ -24,18 +24,6 @@ const paragraphStyles = {
   marginBottom: 48,
 };
 
-const data = useStaticQuery(graphql`
-  query {
-    site {
-      siteMetadata {
-        title
-        description
-        siteUrl
-      }
-    }
-  }
-`);
-
 const NotFoundPage: React.FC<PageProps> = () => {
   return (
     <main style={pageStyles}>
@@ -70,4 +58,4 @@ const NotFoundPage: React.FC<PageProps> = () => {
 
 export default NotFoundPage;
 
-export const Head: HeadFC = () => <div>{data}</div>;
+export const Head: HeadFC = () => <p>Page not found</p>;

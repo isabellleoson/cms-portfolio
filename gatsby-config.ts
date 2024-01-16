@@ -10,19 +10,19 @@ if (process.env.NODE_ENV !== "production") {
 //   path: `.env${process.env.NODE_ENV}`,
 // });
 
-module.exports = {
-  siteMetadata: {
-    title: `Portfolio Isabell Leoson`,
-    description: `Portfolio project`,
-    siteUrl: `https://ileosonportfolio.netlify.app/`,
-  },
-};
+// module.exports = {
+//   siteMetadata: {
+//     title: `Portfolio Isabell Leoson`,
+//     description: `Portfolio project`,
+//     siteUrl: `https://ileosonportfolio.netlify.app/`,
+//   },
+// };
 
 const config: GatsbyConfig = {
   siteMetadata: {
     title: `Portfolio`,
     description: `Portfolio project`,
-    siteUrl: `https://ileosonportfolio.netlify.app/`,
+    // siteUrl: `https://ileosonportfolio.netlify.app/`,
   },
   // More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
   // If you use VSCode you can also use the GraphQL plugin
@@ -58,6 +58,7 @@ const config: GatsbyConfig = {
     "gatsby-plugin-sharp",
     "gatsby-transformer-sharp",
     "gatsby-plugin-postcss",
+    `gatsby-plugin-react-helmet`,
   ],
 };
 

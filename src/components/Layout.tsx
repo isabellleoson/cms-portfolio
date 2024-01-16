@@ -3,22 +3,22 @@ import { useStaticQuery, graphql, HeadFC } from "gatsby";
 import Navigation from "./navigation";
 import Footer from "./Footer";
 import NavbarMobile from "./NavbarMobile";
+// import { Helmet } from "react-helmet";
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
-const data = useStaticQuery(graphql`
-  query {
-    site {
-      siteMetadata {
-        title
-        description
-        siteUrl
-      }
-    }
-  }
-`);
+// const data = useStaticQuery(graphql`
+//   query {
+//     site {
+//       siteMetadata {
+//         title
+//         description
+//       }
+//     }
+//   }
+// `);
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [screenSize, setScreenSize] = React.useState<string>("");
@@ -43,6 +43,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   }, []);
   return (
     <>
+        <meta charSet="utf-8" />
+        <title>Portfolio</title>
+        <link rel="canonical" href="http://mysite.com/example" />
       <header className="pb-2 bg-rose-300 drop-shadow-md">
         {screenSize === "mobile" && <NavbarMobile />}
         {screenSize === "desktop" && <Navigation />}
@@ -56,4 +59,4 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 };
 export default Layout;
 
-export const Head: HeadFC = () => <div>{data}</div>;
+// export const Head: HeadFC = () => <div>{data}</div>;
