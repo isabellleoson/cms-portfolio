@@ -66,9 +66,6 @@ interface BlogProps {
   slug: string;
   underrubrik: string;
   link: string;
-  image: {
-    url: string | null;
-  };
   beskrivning: {
     raw: string;
   };
@@ -98,42 +95,40 @@ const Blog: React.FC<PageProps<QueryResult>> = ({ data }) => {
   };
 
   const GalleryContainer = styled.div`
-    @media (min-width: 600px) {
-      width: 500px;
-    }
-    @media (in-width: 800px) {
-      width: 500px;
-    }
-    @media (min-width: 400px) {
-      width: 500px;
-      flex-wrap: wrap;
-      display: flex;
-    }
+  border: solid black 2px;
+  background-color: ;
+  width: 300px;
+  margin: 5px;
+  padding: 15px;
+    // @media (min-width: 600px) {
+    //   width: 500px;
+    // }
+    // @media (in-width: 800px) {
+    //   width: 500px;
+    // }
+    // @media (min-width: 400px) {
+    //   width: 500px;
+    //   flex-wrap: wrap;
+    //   display: flex;
+    // }
   `;
 
   const OutsideGalleryContainer = styled.div`
-    @media (min-width: 600px) {
-      flex-wrap: wrap;
-      display: flex;
-    }
-    @media (min-width: 800px) {
-      flex-wrap: wrap;
-      display: flex;
-    }
-    @media (min-width: 400px) {
-      width: 500px;
-      flex-wrap: wrap;
-      display: flex;
-    }
+    // @media (min-width: 600px) {
+    //   flex-wrap: wrap;
+    //   display: flex;
+    // }
+    // @media (min-width: 800px) {
+    //   flex-wrap: wrap;
+    //   display: flex;
+    // }
+    // @media (min-width: 400px) {
+    //   width: 500px;
+    //   flex-wrap: wrap;
+    //   display: flex;
+    // }
   `;
 
-  const divHight = {
-    maxWidth: "23vw",
-    margin: "10px",
-    padding: "10px",
-    boxShadow:
-      "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
-  };
 
   const bgColor = {
     backgroundColor: "rgba(126, 111, 78, 0.25)",
@@ -168,13 +163,13 @@ const Blog: React.FC<PageProps<QueryResult>> = ({ data }) => {
           </div>
           <Link to={portfolio.link}>{portfolio.link}</Link>
 
-          <OutsideGalleryContainer className="">
+          <OutsideGalleryContainer className="flex-wrap flex justify-center">
             {Array.isArray(galleriData) &&
               galleriData.map((image, index) => (
-                <GalleryContainer key={index}>
+                <GalleryContainer className="" key={index}>
                   {image.gatsbyImageData ? (
                     <GatsbyImage
-                      className="shadow-lg w-full flex flex-wrap"
+                      className="shadow-lg w-1/2 flex flex-wrap"
                       image={image.gatsbyImageData}
                       alt={`image with description: ${image.description}`}
                     />
@@ -201,9 +196,6 @@ export const pageQuery = graphql`
       slug
       titel
       link
-      image {
-        url
-      }
       beskrivning {
         raw
       }
@@ -213,7 +205,7 @@ export const pageQuery = graphql`
         description
       }
       bild {
-        gatsbyImageData
+        gatsbyImageData(width: 300)
       }
     }
   }

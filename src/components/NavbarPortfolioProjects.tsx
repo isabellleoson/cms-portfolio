@@ -9,7 +9,7 @@ interface Node {
 const Navbar = () => (
   <>
     <nav className="">
-      <ul className="flex flex-wrap space-x-10 justify-center pb-2 pt-2 bg-orange-400">
+      <ul className="flex flex-wrap space-x-10 justify-center pb-2 pt-2 bg-pink-100">
         <StaticQuery
           query={graphql`
             query MyNavQuery {

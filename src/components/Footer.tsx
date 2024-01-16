@@ -1,19 +1,18 @@
+import { Link } from "gatsby";
 import React from "react";
 
 const Footer = () => {
   return (
-    <div className="h-44 flex justify-end items-end mb-0 relative">
-      <p>Copyright: Isabell Leoson 2024</p>
+    <div className="fixed bottom-0 left-0 right-0 flex justify-end items-end p-6 text-stone-900 bg-rose-300">
+      <Link
+        className="flex-1 text-base font-semibold hover:text-stone-600 text-stone-900"
+        to="/Contact"
+      >
+        Contact me
+      </Link>
+      <p className="text-sm">Copyright: Isabell Leoson 2024</p>
     </div>
   );
 };
 
 export default Footer;
-
-const bgColor = {
-  backgroundColor: {
-    red: "#791717",
-    pink: "#FFD0F5",
-    yellow: "#FCFF72",
-  },
-};

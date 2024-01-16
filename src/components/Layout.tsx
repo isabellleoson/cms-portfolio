@@ -9,17 +9,6 @@ interface LayoutProps {
   children: React.ReactNode;
 }
 
-// const data = useStaticQuery(graphql`
-//   query {
-//     site {
-//       siteMetadata {
-//         title
-//         description
-//       }
-//     }
-//   }
-// `);
-
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [screenSize, setScreenSize] = React.useState<string>("");
 
@@ -43,15 +32,18 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   }, []);
   return (
     <>
-        <meta charSet="utf-8" />
+      <head>
+        <html lang="en" />
+        <meta charSet="utf-8"></meta>
         <title>Portfolio</title>
         <link rel="canonical" href="http://mysite.com/example" />
+      </head>
       <header className="pb-2 bg-rose-300 drop-shadow-md">
         {screenSize === "mobile" && <NavbarMobile />}
         {screenSize === "desktop" && <Navigation />}
       </header>
       {children}
-      <footer className="bg-rose-200 bg-opacity-95">
+      <footer className="bg-rose-300 bg-opacity-95">
         <Footer />
       </footer>
     </>
@@ -59,4 +51,10 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 };
 export default Layout;
 
-// export const Head: HeadFC = () => <div>{data}</div>;
+export const Head: HeadFC = () => (
+  <head>
+    <meta charSet="utf-8"></meta>
+    <title>Portfolio</title>
+    <link rel="canonical" href="http://mysite.com/example" />
+  </head>
+);
