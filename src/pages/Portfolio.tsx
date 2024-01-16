@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { graphql, PageProps } from "gatsby";
+import { graphql, HeadFC, PageProps } from "gatsby";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import Layout from "../components/Layout";
 import PortfolioPage from "../components/PortfolioPage";
@@ -172,3 +172,5 @@ export const pageQuery = graphql`
 `;
 
 export default Portfolio;
+
+

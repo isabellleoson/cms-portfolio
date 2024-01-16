@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { graphql, PageProps } from "gatsby";
+import { graphql, HeadFC, PageProps } from "gatsby";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import Layout from "../components/Layout";
 
@@ -35,9 +35,6 @@ const Category: React.FC<PageProps<PortfolioQuery>> = (props) => {
     return allPosts.filter((post) => post.node.category === selectedCategory);
   };
 
-  // const backgroundImageUrl =
-  //   props.data.allContentfulPages.edges[0]?.node?.image?.url;
-
   return (
     <Layout>
       <main className="ml-6 mr-6">
@@ -46,10 +43,7 @@ const Category: React.FC<PageProps<PortfolioQuery>> = (props) => {
             {filteredPosts().map(({ node }, index) => (
               <>
                 <div className="flex drop-shadow-xl">
-                  <ul
-                    // style={redColor}
-                    className="flex-3 pb-12 pl-10 pr-10 pt-2 h-full font-medium drop-shadow-lg rounded-b-full bg-[#3542F4]"
-                  >
+                  <ul className="flex-3 pb-12 pl-10 pr-10 pt-2 h-full font-medium drop-shadow-lg rounded-b-full bg-[#3542F4]">
                     {categories.map((category, index) => (
                       <li
                         className="text-lg text-stone-200 hover:text-stone-400"

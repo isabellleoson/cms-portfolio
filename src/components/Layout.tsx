@@ -42,6 +42,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   }, []);
   return (
     <>
+    
       <header className="pb-2 bg-rose-300 drop-shadow-md">
         {/* <Navbar /> */}
         {/* <NavbarPages /> */}

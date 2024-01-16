@@ -1,4 +1,4 @@
-import { PageProps, graphql } from "gatsby";
+import { HeadFC, PageProps, graphql } from "gatsby";
 import React from "react";
 import Layout from "../components/Layout";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
@@ -90,3 +90,6 @@ export const pageQuery = graphql`
 `;
 
 export default Contact;
+
+export const Head: HeadFC<PageProps<QueryResult>> = ({data}) => <title>{data.data.contentfulPages.titel}</title>;
+

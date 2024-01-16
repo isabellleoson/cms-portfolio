@@ -126,4 +126,6 @@ export const pageQuery = graphql`
 
 export default Index;
 
-export const Head: HeadFC = () => <title>Hem</title>;
+export const Head: HeadFC<PageProps<QueryResult>> = ({ data }) => (
+  <title>{data.data.contentfulPages.titel}</title>
+);
