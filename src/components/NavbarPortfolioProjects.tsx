@@ -1,15 +1,25 @@
 import React from "react";
 import { Link, StaticQuery, graphql } from "gatsby";
+import styled from "styled-components";
 
 interface Node {
   slug: string;
   titel: string;
 }
 
+const Ul = styled.ul`
+  justify-content: center;
+
+  @media (max-width: 500px) {
+    justify-content: space-around;
+    font-size: 14px;
+  }
+`;
+
 const Navbar = () => (
   <>
     <nav className="">
-      <ul className="flex flex-wrap space-x-10 justify-center pb-2 pt-2 bg-pink-100">
+      <Ul className="flex flex-wrap pb-2 pt-2 bg-pink-100">
         <StaticQuery
           query={graphql`
             query MyNavQuery {
@@ -34,7 +44,7 @@ const Navbar = () => (
             ))
           }
         />
-      </ul>
+      </Ul>
     </nav>
   </>
 );

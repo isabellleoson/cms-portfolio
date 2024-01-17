@@ -66,7 +66,7 @@ const Portfolio: React.FC<PageProps<PortfolioQuery>> = (props) => {
   const image = getImage(imageData);
 
   const categories = [
-    "Alla projekt",
+    "All",
     ...new Set(allPosts.map((post) => post.node.category)),
     ...new Set(allPosts.map((post) => post.node.categoryFrameworks)),
   ];
@@ -161,6 +161,7 @@ export const pageQuery = graphql`
             description
           }
           category
+          categoryFrameworks
           galleri {
             gatsbyImageData
             description

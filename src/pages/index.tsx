@@ -53,16 +53,41 @@ const Index: React.FC<PageProps<QueryResult>> = ({ data }) => {
   const imageData = data.contentfulPages.image;
   const image = getImage(imageData);
 
+  const Container = styled.div`
+    z-index: 10:
+    @media (max-width: 700px) {
+      flex-direction: column;
+    }
+  `;
+
   const RichTextDiv = styled.div`
+    z-index: 0 !important;
     @media (max-width: 700px) {
       font-size: 20px;
     }
   `;
+  const Pdiv = styled.div`
+    z-index: 0 !important;
+    @media (max-width: 700px) {
+      font-size: 20px;
+    }
+  `;
+  const H1 = styled.h1`
+    font-size: 70px;
+    @media (max-width: 700px) {
+      font-size: 30px;
+      margin-right: 30px;
+    }
+  `;
 
   const ImgDiv = styled.div`
-    @media (max-width: 700px) {
-      width: 200%;
-      height: 200%;
+    // @media (max-width: 500px) and (min-width: 700px);
+    //  {
+    //   object-fit: contain;
+    //   height: 200%;
+    // }
+    @media (max-width: 500px) {
+      display: none;
     }
   `;
 
@@ -70,39 +95,43 @@ const Index: React.FC<PageProps<QueryResult>> = ({ data }) => {
     <>
       <Layout>
         {portfolio.image ? (
-          <div className="flex p-6">
+          <Container className="flex flex-wrap p-6">
             <ImgDiv className="p-6 flex-1">
               {image && (
-                <GatsbyImage image={image} alt={portfolio.image.description} />
+                <GatsbyImage
+                  className=""
+                  image={image}
+                  alt={portfolio.image.description}
+                />
               )}
             </ImgDiv>
 
-            <div className="flex-1 text-end space-y-8 items-end flex flex-col sm:text-sm">
-              <h1 className="text-5xl font-semibold">{portfolio.titel}</h1>
+            <div className="flex-1 text-end space-y-8 items-end flex flex-col">
+              <H1 className="font-semibold">{portfolio.titel}</H1>
 
               {portfolio.richText && (
                 <RichTextDiv
-                  className="text-4xl tracking-wider 
+                  className="text-4xl tracking-wider
                 bg-[#F6F1E3] bg-opacity-90 p-6"
                 >
-                  <p className="drop-shadow-lg">
+                  <Pdiv className="drop-shadow-lg">
                     {documentToReactComponents(
                       JSON.parse(portfolio.richText.raw),
                     )}
-                  </p>
+                  </Pdiv>
                 </RichTextDiv>
               )}
 
               <RichTextDiv className="space-x-5 text-3xl bg-blue-500 bg-opacity-95 p-6 w-full font-semibold tracking-wider">
-                <Link to="/Category" className="">
+                <Link to="/Portfolio" className="hover:text-stone-700">
                   Portfolio
                 </Link>
-                <Link to="/Resume" className="">
+                <Link to="/Resume" className="hover:text-stone-700">
                   Resumé
                 </Link>
               </RichTextDiv>
             </div>
-          </div>
+          </Container>
         ) : null}
       </Layout>
     </>

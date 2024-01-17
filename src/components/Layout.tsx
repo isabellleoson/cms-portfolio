@@ -40,7 +40,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         {screenSize === "mobile" && <NavbarMobile />}
         {screenSize === "desktop" && <Navigation />}
       </header>
-      <main className="bg-[#f9f2f6]">{children}</main>
+      <main className="bg-[#f9f2f6] min-h-screen">{children}</main>
       <footer className="bg-rose-200 bg-opacity-95">
         <Footer />
       </footer>

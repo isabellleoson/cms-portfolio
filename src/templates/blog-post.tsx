@@ -107,14 +107,18 @@ const Blog: React.FC<PageProps<QueryResult>> = ({ data }) => {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    @media (max-width: 700px) {
+      display: flex;
+      flex-direction: column;
+    }
   `;
 
   const FrontImageDiv = styled.div`
     width: 250px;
     margin: 15px;
 
-    @media (max-width: 600px) {
-      width: 300x;
+    @media (max-width: 500px) {
+      width: 200x;
     }
   `;
 
@@ -125,6 +129,25 @@ const Blog: React.FC<PageProps<QueryResult>> = ({ data }) => {
     align-items: center;
     justify-content; center;
     width: 400px;
+
+    @media(max-width: 500px) {
+    padding-left: 30px;
+    padding-right: 30px;
+
+    }
+  `;
+
+  const H1 = styled.h1`
+    @media (max-width: 500px) {
+      font-size: 30px;
+      margin-bottom: 5px;
+    }
+  `;
+
+  const H2 = styled.h2`
+    @media (max-width: 500px) {
+      font-size: 15px;
+    }
   `;
 
   const bgColor = {
@@ -143,8 +166,8 @@ const Blog: React.FC<PageProps<QueryResult>> = ({ data }) => {
         <main className="flex flex-col items-center pl-6 pr-6">
           <HeadingDiv className="">
             <TextHeadingDiv className="">
-              <h1 className="font-bold mb-6 text-5xl">{portfolio.titel}</h1>
-              <h2 className="text-center">{portfolio.underrubrik}</h2>
+              <H1 className="font-bold">{portfolio.titel}</H1>
+              <H2 className="text-center">{portfolio.underrubrik}</H2>
             </TextHeadingDiv>
 
             {portfolio.bild && (
@@ -155,8 +178,8 @@ const Blog: React.FC<PageProps<QueryResult>> = ({ data }) => {
               </FrontImageDiv>
             )}
           </HeadingDiv>
-          <div style={bgColor} className="flex justify-end">
-            <div className="m-2 w-1/2 sm:w-full sm:text-sm text-end">
+          <div style={bgColor} className="flex mb-4 justify-end">
+            <div className="m-2 w-1/2 sm:w-full text-end">
               {documentToReactComponents(JSON.parse(portfolio.beskrivning.raw))}
             </div>
           </div>

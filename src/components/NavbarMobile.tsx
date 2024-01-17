@@ -1,6 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { Link, StaticQuery, graphql } from "gatsby";
 import Search from "./Search";
+import styled from "styled-components";
+import { RiMenu3Fill } from "react-icons/ri";
+import { IoMdClose } from "react-icons/io";
+
+const Nav = styled.nav`
+  z-index: 100 !important;
+`;
+
+const Container = styled.div`
+  z-index: 100 !important;
+`;
+const Li = styled.li`
+  &:hover {
+    color: gray;
+  }
+`;
 
 const NavbarMobile = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -10,21 +26,17 @@ const NavbarMobile = () => {
   };
 
   return (
-    <div className="">
-      <div className="text-end w-full">
-        <button className=" p-4" onClick={toggleMenu}>
-          {isOpen ? (
-            <p className="bold">Close Menu</p>
-          ) : (
-            <p className="">Menu</p>
-          )}
+    <Container className="flex justify-end">
+      <div className="relative flex flex-col justify-end items-end text-end w-full">
+        <button className="p-4" onClick={toggleMenu}>
+          {isOpen ? <IoMdClose /> : <RiMenu3Fill />}
         </button>
       </div>
 
       {isOpen ? (
-        <nav className="flex p-6">
+        <Nav className="flex flex-col justify-end items-end text-end pl-6 pr-6 pb-6 w-auto bg-rose-200 bg-opacity-95 absolute mt-16">
           <ul className="flex flex-1 flex-col pt-2">
-            <li className="">
+            <Li>
               <Link
                 to="/"
                 className=""
@@ -34,8 +46,8 @@ const NavbarMobile = () => {
               >
                 Home
               </Link>
-            </li>
-            <li>
+            </Li>
+            <Li>
               <Link
                 activeStyle={{
                   fontWeight: "bold",
@@ -45,8 +57,8 @@ const NavbarMobile = () => {
               >
                 Portfolio
               </Link>
-            </li>
-            <li className="">
+            </Li>
+            <Li className="">
               <Link
                 activeStyle={{
                   fontWeight: "bold",
@@ -56,8 +68,8 @@ const NavbarMobile = () => {
               >
                 Resumé
               </Link>
-            </li>
-            <li className="">
+            </Li>
+            <Li className="">
               <Link
                 activeStyle={{
                   fontWeight: "bold",
@@ -67,7 +79,7 @@ const NavbarMobile = () => {
               >
                 Contact
               </Link>
-            </li>
+            </Li>
           </ul>
 
           <div className="">
@@ -80,19 +92,17 @@ const NavbarMobile = () => {
                 }
               `}
               render={(data) => (
-                <div className="flex flex-wrap items-center">
-                  <p className="mr-2">Search Projects: </p>
-
+                <div className="flex flex-wrap items-center pt-2">
                   <Search searchIndex={data.siteSearchIndex.index} />
                 </div>
               )}
             />
           </div>
-        </nav>
+        </Nav>
       ) : (
         ""
       )}
-    </div>
+    </Container>
   );
 };
 export default NavbarMobile;
