@@ -3,6 +3,30 @@ import { graphql, HeadFC, PageProps } from "gatsby";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import Layout from "../components/Layout";
 import Head from "../components/Head";
+import styled from "styled-components";
+
+const H1 = styled.h1`
+  font-size: 50px;
+
+  @media (max-width: 600px) {
+    font-size: 30px;
+  }
+`;
+
+const Ul = styled.ul`
+  padding: 5px 30px 50px;
+  margin: 0 30px 50px;
+  @media (max-width: 600px) {
+    padding: 10px;
+    padding-bottom: 40px;
+  }
+`;
+const Li = styled.li`
+  @media (max-width: 600px) {
+    font-size: 14px;
+    padding: 5px;
+  }
+`;
 
 interface PortfolioNode {
   slug: string;
@@ -50,26 +74,26 @@ const Category: React.FC<PageProps<PortfolioQuery>> = (props) => {
             {filteredPosts().map(({ node }, index) => (
               <>
                 <div className="flex drop-shadow-xl">
-                  <ul className="flex-3 pb-12 pl-10 pr-10 pt-2 h-full font-medium drop-shadow-lg rounded-b-full bg-[#3542F4]">
+                  <Ul className="flex-3 h-full drop-shadow-lg rounded-b-full bg-blue-500">
                     {categories.map((category, index) => (
-                      <li
-                        className="text-lg text-stone-200 hover:text-stone-400"
+                      <Li
+                        className="text-stone-900 hover:text-stone-400"
                         key={`${index}`}
                       >
                         <button onClick={() => setSelectedCategory(category)}>
                           {category}
                         </button>
-                      </li>
+                      </Li>
                     ))}
-                  </ul>
+                  </Ul>
 
                   <div
                     className="flex flex-1 flex-col items-end text-end bg-opacity-20"
                     key={index}
                   >
-                    <h1 className="text-5xl mt-6 mb-6">{node.title}</h1>
+                    <H1 className="mt-6 mb-6">{node.title}</H1>
 
-                    <p className="w-2/3 pb-6">
+                    <p className="pb-6 bg-rose-50 p-4">
                       {documentToReactComponents(
                         JSON.parse(node.description.raw),
                       )}

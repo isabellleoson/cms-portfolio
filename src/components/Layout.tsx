@@ -36,7 +36,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   }, []);
   return (
     <>
-      <header className="pb-2 bg-rose-200 drop-shadow-md">
+      <header className="pb-2 drop-shadow-md">
         {screenSize === "mobile" && <NavbarMobile />}
         {screenSize === "desktop" && <Navigation />}
       </header>

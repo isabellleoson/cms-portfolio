@@ -106,19 +106,21 @@ const Portfolio: React.FC<PageProps<PortfolioQuery>> = (props) => {
       <Navbar />
       <main className="">
         <div className="flex justify-end">
-          <label htmlFor="categories">
-            <select
-              id="categories"
-              className="p-2 m-2 rounded-lg shadow-md"
-              onChange={(e) => handleCategoryChange(e)}
-            >
-              {categories.map((category, index) => (
-                <option key={`${index}`} value={category}>
-                  {category}
-                </option>
-              ))}
-            </select>
-          </label>
+          <form>
+            <label htmlFor="categories">
+              <select
+                id="categories"
+                className="p-2 m-2 rounded-lg shadow-md"
+                onChange={(e) => handleCategoryChange(e)}
+              >
+                {categories.map((category, index) => (
+                  <option key={`${index}`} value={category}>
+                    {category}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </form>
         </div>
         <div className="flex flex-wrap justify-center space-x-4 mt-2">
           {filteredPosts().map(({ node }, index) => (

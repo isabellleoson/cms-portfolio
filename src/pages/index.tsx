@@ -73,7 +73,7 @@ const Index: React.FC<PageProps<QueryResult>> = ({ data }) => {
     }
   `;
   const H1 = styled.h1`
-    font-size: 70px;
+    font-size: 50px;
     @media (max-width: 700px) {
       font-size: 30px;
       margin-right: 30px;
@@ -86,7 +86,7 @@ const Index: React.FC<PageProps<QueryResult>> = ({ data }) => {
     //   object-fit: contain;
     //   height: 200%;
     // }
-    @media (max-width: 500px) {
+    @media (max-width: 700px) {
       display: none;
     }
   `;
@@ -95,11 +95,11 @@ const Index: React.FC<PageProps<QueryResult>> = ({ data }) => {
     <>
       <Layout>
         {portfolio.image ? (
-          <Container className="flex flex-wrap p-6">
-            <ImgDiv className="p-6 flex-1">
+          <Container className="flex flex-wrap p-4">
+            <ImgDiv className="p-4 flex-1">
               {image && (
                 <GatsbyImage
-                  className=""
+                  className="shadow-lg"
                   image={image}
                   alt={portfolio.image.description}
                 />
@@ -111,8 +111,8 @@ const Index: React.FC<PageProps<QueryResult>> = ({ data }) => {
 
               {portfolio.richText && (
                 <RichTextDiv
-                  className="text-4xl tracking-wider
-                bg-[#F6F1E3] bg-opacity-90 p-6"
+                  className="text-3xl tracking-wider
+                bg-rose-50 shadow-lg bg-opacity-90 p-6"
                 >
                   <Pdiv className="drop-shadow-lg">
                     {documentToReactComponents(
@@ -122,7 +122,7 @@ const Index: React.FC<PageProps<QueryResult>> = ({ data }) => {
                 </RichTextDiv>
               )}
 
-              <RichTextDiv className="space-x-5 text-3xl bg-blue-500 bg-opacity-95 p-6 w-full font-semibold tracking-wider">
+              <RichTextDiv className="space-x-5 text-3xl bg-blue-500 bg-opacity-95 p-6 w-full font-semibold tracking-wider shadow-lg">
                 <Link to="/Portfolio" className="hover:text-stone-700">
                   Portfolio
                 </Link>

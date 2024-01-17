@@ -92,7 +92,7 @@ const Blog: React.FC<PageProps<QueryResult>> = ({ data }) => {
   const galleriData = data.contentfulPortfolio.galleri;
 
   const GalleryContainer = styled.div`
-    background-color: rgb(250, 244, 240);
+    // background-color: rgb(250, 244, 240);
     width: 300px;
     margin: 10px;
     padding: 15px;
@@ -151,7 +151,7 @@ const Blog: React.FC<PageProps<QueryResult>> = ({ data }) => {
   `;
 
   const bgColor = {
-    backgroundColor: "rgba(126, 111, 78, 0.25)",
+    backgroundColor: " background-color: rgb(255 228 230)",
     padding: "50px",
   };
 
@@ -178,7 +178,10 @@ const Blog: React.FC<PageProps<QueryResult>> = ({ data }) => {
               </FrontImageDiv>
             )}
           </HeadingDiv>
-          <div style={bgColor} className="flex mb-4 justify-end">
+          <div
+            style={bgColor}
+            className="flex mb-4 justify-end max-w-full bg-rose-200 shadow-lg"
+          >
             <div className="m-2 w-1/2 sm:w-full text-end">
               {documentToReactComponents(JSON.parse(portfolio.beskrivning.raw))}
             </div>
@@ -187,10 +190,13 @@ const Blog: React.FC<PageProps<QueryResult>> = ({ data }) => {
           <OutsideGalleryContainer className="flex-wrap flex justify-center items-baseline]">
             {Array.isArray(galleriData) &&
               galleriData.map((image, index) => (
-                <GalleryContainer className="" key={index}>
+                <GalleryContainer
+                  className="shadow-lg rounded-lg bg-rose-100"
+                  key={index}
+                >
                   {image.gatsbyImageData ? (
                     <GatsbyImage
-                      className="shadow-lg w-1/2 flex flex-wrap"
+                      className="shadow-lg w-1/2 rounded-lg flex flex-wrap"
                       image={image.gatsbyImageData}
                       alt={`image with description: ${image.description}`}
                     />
