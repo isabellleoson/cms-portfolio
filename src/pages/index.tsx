@@ -33,6 +33,7 @@ interface images {
 interface BlogProps {
   titel: string;
   slug: string;
+  metaDescription: string;
   richText: {
     raw: string;
   };
@@ -69,7 +70,7 @@ const Index: React.FC<PageProps<QueryResult>> = ({ data }) => {
     <>
       <Layout>
         {portfolio.image ? (
-          <main className="flex p-6">
+          <div className="flex p-6">
             <ImgDiv className="p-6 flex-1">
               {image && (
                 <GatsbyImage image={image} alt={portfolio.image.description} />
@@ -92,7 +93,7 @@ const Index: React.FC<PageProps<QueryResult>> = ({ data }) => {
                 </RichTextDiv>
               )}
 
-              <RichTextDiv className="space-x-5 text-3xl bg-rose-200 bg-opacity-95 p-6 w-full font-semibold tracking-wider">
+              <RichTextDiv className="space-x-5 text-3xl bg-blue-500 bg-opacity-95 p-6 w-full font-semibold tracking-wider">
                 <Link to="/Category" className="">
                   Portfolio
                 </Link>
@@ -101,7 +102,7 @@ const Index: React.FC<PageProps<QueryResult>> = ({ data }) => {
                 </Link>
               </RichTextDiv>
             </div>
-          </main>
+          </div>
         ) : null}
       </Layout>
     </>
@@ -113,6 +114,7 @@ export const pageQuery = graphql`
     contentfulPages(slug: { eq: "/" }) {
       titel
       slug
+      metaDescription
       richText {
         raw
       }
@@ -126,4 +128,16 @@ export const pageQuery = graphql`
 
 export default Index;
 
+export const Head: HeadFC<QueryResult> = ({ data }) => {
+  const title = data.contentfulPages.titel;
+  const description = data.contentfulPages.metaDescription;
 
+  return (
+    <>
+      <html lang="en" />
+      <meta name="description" content={description}></meta>
+      <title>{title}</title>
+      <link rel="canonical" href="https://ileosonportfolio.netlify.app/" />
+    </>
+  );
+};

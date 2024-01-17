@@ -32,6 +32,7 @@ interface images {
 interface ContactProps {
   titel: string;
   slug: string;
+  metaDescription: string;
   richText: {
     raw: string;
   };
@@ -80,6 +81,7 @@ export const pageQuery = graphql`
         raw
       }
       titel
+      metaDescription
       slug
       image {
         gatsbyImageData
@@ -91,5 +93,16 @@ export const pageQuery = graphql`
 
 export default Contact;
 
+export const Head: HeadFC<QueryResult> = ({ data }) => {
+  const title = data.contentfulPages.titel;
+  const description = data.contentfulPages.metaDescription;
 
-
+  return (
+    <>
+      <html lang="en" />
+      <meta name="description" content={description}></meta>
+      <title>{title}</title>
+      <link rel="canonical" href="https://ileosonportfolio.netlify.app/" />
+    </>
+  );
+};

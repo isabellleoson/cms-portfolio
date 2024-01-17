@@ -32,18 +32,18 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   }, []);
   return (
     <>
-      <head>
+      {/* <head>
         <html lang="en" />
         <meta name="description" content="Portfolio page"></meta>
         <title>Portfolio</title>
         <link rel="canonical" href="http://mysite.com/example" />
-      </head>
-      <header className="pb-2 bg-rose-300 drop-shadow-md">
+      </head> */}
+      <header className="pb-2 bg-rose-200 drop-shadow-md">
         {screenSize === "mobile" && <NavbarMobile />}
         {screenSize === "desktop" && <Navigation />}
       </header>
-      {children}
-      <footer className="bg-rose-300 bg-opacity-95">
+      <main className="bg-[#f9f2f6]">{children}</main>
+      <footer className="bg-rose-200 bg-opacity-95">
         <Footer />
       </footer>
     </>
@@ -53,7 +53,8 @@ export default Layout;
 
 export const Head: HeadFC = () => (
   <head>
-    <meta charSet="utf-8"></meta>
+    <html lang="en" />
+    <meta name="description" content="Portfolio page"></meta>
     <title>Portfolio</title>
     <link rel="canonical" href="http://mysite.com/example" />
   </head>

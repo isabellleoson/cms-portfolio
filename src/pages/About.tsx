@@ -7,6 +7,7 @@ import { Node } from "@contentful/rich-text-types";
 interface AboutProps {
   title: string;
   slug: string;
+  metaDescription: string;
   description: {
     raw: string;
   };
@@ -57,6 +58,7 @@ export const pageQuery = graphql`
         raw
       }
       title
+      metaDescription
       slug
     }
   }
@@ -64,5 +66,16 @@ export const pageQuery = graphql`
 
 export default About;
 
+export const Head: HeadFC<QueryResult> = ({ data }) => {
+  const title = data.contentfulResumePages.title;
+  const description = data.contentfulResumePages.metaDescription;
 
-
+  return (
+    <>
+      <html lang="en" />
+      <meta name="description" content={description}></meta>
+      <title>{title}</title>
+      <link rel="canonical" href="https://ileosonportfolio.netlify.app/" />
+    </>
+  );
+};

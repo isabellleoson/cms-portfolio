@@ -10,6 +10,7 @@ interface PortfolioNode {
     raw: string;
   };
   title: string;
+  metaDescription: string;
 }
 
 interface PortfolioQuery {
@@ -87,6 +88,7 @@ export const pageQuery = graphql`
             raw
           }
           slug
+          metaDescription
           title
           category
         }
@@ -96,3 +98,17 @@ export const pageQuery = graphql`
 `;
 
 export default Category;
+
+export const Head: HeadFC<PortfolioNode> = ({ data }) => {
+  const title = data.title;
+  const description = data.metaDescription;
+
+  return (
+    <>
+      <html lang="en" />
+      <meta name="description" content={description}></meta>
+      <title>{title}</title>
+      <link rel="canonical" href="https://ileosonportfolio.netlify.app/" />
+    </>
+  );
+};

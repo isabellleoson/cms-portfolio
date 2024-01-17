@@ -171,3 +171,19 @@ export const pageQuery = graphql`
 `;
 
 export default Portfolio;
+
+export const Head: HeadFC<PortfolioNode> = ({ data }) => {
+  const title = data.titel;
+
+  return (
+    <>
+      <html lang="en" />
+      <meta
+        name="description"
+        content="Explore my frontend portfolio showcasing cutting-edge projects. Elevate user experiences with innovative designs and seamless functionality. Dive into a world of creativity. Click to view now."
+      ></meta>
+      <title>{title}</title>
+      <link rel="canonical" href="https://ileosonportfolio.netlify.app/" />
+    </>
+  );
+};
