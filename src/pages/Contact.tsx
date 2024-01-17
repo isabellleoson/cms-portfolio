@@ -55,8 +55,6 @@ const Contact: React.FC<PageProps<QueryResult>> = ({ data }) => {
   return (
     <>
       <Layout>
-        {/* <h1 className="m-4 text-center font-bold">{contact.titel}</h1> */}
-
         <div className="p-6 flex items-center justify-center space-x-10">
           <div className="max-w-md">
             {image && (
@@ -92,17 +90,3 @@ export const pageQuery = graphql`
 `;
 
 export default Contact;
-
-export const Head: HeadFC<QueryResult> = ({ data }) => {
-  const title = data.contentfulPages.titel;
-  const description = data.contentfulPages.metaDescription;
-
-  return (
-    <>
-      <html lang="en" />
-      <meta name="description" content={description}></meta>
-      <title>{title}</title>
-      <link rel="canonical" href="https://ileosonportfolio.netlify.app/" />
-    </>
-  );
-};

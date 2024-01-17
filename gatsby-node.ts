@@ -5,6 +5,7 @@ interface ContentfulPortfolioNode {
   titel: string;
   slug: string;
   category: string;
+  metaDescription: string;
 }
 
 interface ContentfulPortfolioQueryResult {
@@ -30,6 +31,7 @@ const createPages: GatsbyNode["createPages"] = async ({
             titel
             slug
             category
+            metaDescription
           }
         }
       }

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { graphql, HeadFC, PageProps } from "gatsby";
+import React, { useState } from "react";
+import { graphql, PageProps } from "gatsby";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import Layout from "../components/Layout";
 import PortfolioPage from "../components/PortfolioPage";
@@ -35,6 +35,7 @@ interface PortfolioNode {
   id: string;
   slug: string;
   category: string;
+  metaDescription: string;
   categoryFrameworks: string;
   underrubrik: string;
   beskrivning: {
@@ -103,7 +104,6 @@ const Portfolio: React.FC<PageProps<PortfolioQuery>> = (props) => {
   return (
     <Layout>
       <Navbar />
-
       <main className="">
         <div className="flex justify-end">
           <label htmlFor="categories">
@@ -128,6 +128,7 @@ const Portfolio: React.FC<PageProps<PortfolioQuery>> = (props) => {
                   key={node.slug}
                   slug={node.slug}
                   title={node.titel}
+                  metaDescription={node.metaDescription}
                   underrubrik={node.underrubrik}
                   imageData={node.bild && node.bild}
                   description={
@@ -152,18 +153,22 @@ export const pageQuery = graphql`
     allContentfulPortfolio {
       edges {
         node {
-          slug
-          id
-          category
-          categoryFrameworks
-          underrubrik
           beskrivning {
             raw
           }
-          titel
           bild {
             gatsbyImageData
+            description
           }
+          category
+          galleri {
+            gatsbyImageData
+            description
+          }
+          metaDescription
+          underrubrik
+          titel
+          slug
         }
       }
     }
@@ -171,19 +176,3 @@ export const pageQuery = graphql`
 `;
 
 export default Portfolio;
-
-export const Head: HeadFC<PortfolioNode> = ({ data }) => {
-  const title = data.titel;
-
-  return (
-    <>
-      <html lang="en" />
-      <meta
-        name="description"
-        content="Explore my frontend portfolio showcasing cutting-edge projects. Elevate user experiences with innovative designs and seamless functionality. Dive into a world of creativity. Click to view now."
-      ></meta>
-      <title>{title}</title>
-      <link rel="canonical" href="https://ileosonportfolio.netlify.app/" />
-    </>
-  );
-};

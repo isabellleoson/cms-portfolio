@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { graphql, HeadFC, PageProps } from "gatsby";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import Layout from "../components/Layout";
+import Head from "../components/Head";
 
 interface PortfolioNode {
   slug: string;
@@ -36,8 +37,13 @@ const Category: React.FC<PageProps<PortfolioQuery>> = (props) => {
     return allPosts.filter((post) => post.node.category === selectedCategory);
   };
 
+  const title = filteredPosts().length > 0 ? filteredPosts()[0].node.title : "";
+  const metaDescription =
+    filteredPosts().length > 0 ? filteredPosts()[0].node.metaDescription : "";
+
   return (
     <Layout>
+      <Head metaDescription={metaDescription} titel={title} />
       <main className="ml-6 mr-6">
         <div className="">
           <div className="">
@@ -84,13 +90,13 @@ export const pageQuery = graphql`
     allContentfulResumePages {
       edges {
         node {
+          category
           description {
             raw
           }
           slug
-          metaDescription
           title
-          category
+          metaDescription
         }
       }
     }
@@ -98,17 +104,3 @@ export const pageQuery = graphql`
 `;
 
 export default Category;
-
-export const Head: HeadFC<PortfolioNode> = ({ data }) => {
-  const title = data.title;
-  const description = data.metaDescription;
-
-  return (
-    <>
-      <html lang="en" />
-      <meta name="description" content={description}></meta>
-      <title>{title}</title>
-      <link rel="canonical" href="https://ileosonportfolio.netlify.app/" />
-    </>
-  );
-};

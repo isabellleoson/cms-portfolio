@@ -5,6 +5,7 @@ import Layout from "../components/Layout";
 import Navbar from "../components/NavbarPortfolioProjects";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import styled from "styled-components";
+import Head from "../components/Head";
 
 //Interfaces for single images
 interface GatsbyImageSource {
@@ -65,7 +66,7 @@ interface BlogProps {
   titel: string;
   slug: string;
   underrubrik: string;
-  link: string;
+  metaDescription: string;
   beskrivning: {
     raw: string;
   };
@@ -133,6 +134,10 @@ const Blog: React.FC<PageProps<QueryResult>> = ({ data }) => {
 
   return (
     <>
+      <Head
+        metaDescription={portfolio.metaDescription}
+        titel={portfolio.titel}
+      />
       <Layout>
         <Navbar />
         <main className="flex flex-col items-center pl-6 pr-6">
@@ -155,7 +160,6 @@ const Blog: React.FC<PageProps<QueryResult>> = ({ data }) => {
               {documentToReactComponents(JSON.parse(portfolio.beskrivning.raw))}
             </div>
           </div>
-          <Link to={portfolio.link}>{portfolio.link}</Link>
 
           <OutsideGalleryContainer className="flex-wrap flex justify-center items-baseline]">
             {Array.isArray(galleriData) &&
@@ -189,7 +193,7 @@ export const pageQuery = graphql`
     contentfulPortfolio(slug: { eq: $slug }) {
       slug
       titel
-      link
+      metaDescription
       beskrivning {
         raw
       }

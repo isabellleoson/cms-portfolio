@@ -1,5 +1,6 @@
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import * as React from "react";
+import Head from "./Head";
 
 interface GatsbyImageSource {
   srcSet: string;
@@ -27,8 +28,9 @@ interface images {
 }
 
 interface PortfolioPageProps {
-  title?: string;
+  title: string;
   description?: React.ReactNode;
+  metaDescription: string;
   imageData?: {
     gatsbyImageData: images;
   };
@@ -42,26 +44,34 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({
   description,
   imageData,
   underrubrik,
+  metaDescription,
   slug,
 }) => {
   const image = imageData ? getImage(imageData) : null;
   return (
-    <a href={`/${slug}`}>
-      <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-md m-2">
-        {image && (
-          <GatsbyImage alt="front image for portfolio project" image={image} />
-        )}
-        <div className="p-5">
-          <h1 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-            {title}
-          </h1>
-          <h2>{underrubrik}</h2>
-          <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-            {description}
-          </p>
+    <>
+      <Head metaDescription={metaDescription} titel={title} />
+
+      <a href={`/${slug}`}>
+        <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-md m-2">
+          {image && (
+            <GatsbyImage
+              alt="front image for portfolio project"
+              image={image}
+            />
+          )}
+          <div className="p-5">
+            <h1 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+              {title}
+            </h1>
+            <h2>{underrubrik}</h2>
+            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+              {description}
+            </p>
+          </div>
         </div>
-      </div>
-    </a>
+      </a>
+    </>
   );
 };
 

@@ -3,10 +3,14 @@ import { useStaticQuery, graphql, HeadFC } from "gatsby";
 import Navigation from "./navigation";
 import Footer from "./Footer";
 import NavbarMobile from "./NavbarMobile";
-// import { Helmet } from "react-helmet";
 
 interface LayoutProps {
   children: React.ReactNode;
+}
+
+interface HeadProps {
+  metaDescription: string;
+  title: string;
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
@@ -32,12 +36,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   }, []);
   return (
     <>
-      {/* <head>
-        <html lang="en" />
-        <meta name="description" content="Portfolio page"></meta>
-        <title>Portfolio</title>
-        <link rel="canonical" href="http://mysite.com/example" />
-      </head> */}
       <header className="pb-2 bg-rose-200 drop-shadow-md">
         {screenSize === "mobile" && <NavbarMobile />}
         {screenSize === "desktop" && <Navigation />}
@@ -51,11 +49,15 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 };
 export default Layout;
 
-export const Head: HeadFC = () => (
-  <head>
-    <html lang="en" />
-    <meta name="description" content="Portfolio page"></meta>
-    <title>Portfolio</title>
-    <link rel="canonical" href="http://mysite.com/example" />
-  </head>
-);
+export const Head: HeadFC<HeadProps> = ({ data }) => {
+  return (
+    <>
+      <html lang="en" />
+      {data.metaDescription && (
+        <meta name="description" content={data.metaDescription} />
+      )}
+      <title>{data.title}</title>
+      <link rel="canonical" href="https://ileosonportfolio.netlify.app/" />
+    </>
+  );
+};
