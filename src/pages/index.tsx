@@ -44,6 +44,11 @@ interface BlogProps {
   };
 }
 
+interface HeadProps {
+  titel: string;
+  metaDescription: string;
+}
+
 interface QueryResult {
   contentfulPages: BlogProps;
 }
@@ -170,16 +175,16 @@ export const pageQuery = graphql`
 
 export default Index;
 
-export const Head: HeadFC<BlogProps> = ({ data }) => {
+export const Head: React.FC<PageProps<QueryResult>> = ({ data }) => {
+  const portfolio = data.contentfulPages;
   return (
     <>
-      <html lang="en">
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="description" content={data.metaDescription} />
-        <title>{data.titel}</title>
-        <link rel="canonical" href="https://ileosonportfolio.netlify.app/" />
-      </html>
+      <html lang="en" />
+      <title>{portfolio.titel}</title>
+      <meta charSet="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta name="description" content={portfolio.metaDescription} />
+      <link rel="canonical" href="https://ileosonportfolio.netlify.app/" />
     </>
   );
 };
