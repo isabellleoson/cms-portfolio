@@ -4,7 +4,7 @@ import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import Layout from "../components/Layout";
 import PortfolioPage from "../components/PortfolioPage";
 import Navbar from "../components/NavbarPortfolioProjects";
-import { getImage } from "gatsby-plugin-image";
+import Head from "../components/Head";
 
 interface GatsbyImageSource {
   srcSet: string;
@@ -62,13 +62,14 @@ const Portfolio: React.FC<PageProps<PortfolioQuery>> = (props) => {
   });
   const allPosts = props.data.allContentfulPortfolio.edges;
 
-  const imageData = props.data.allContentfulPortfolio;
-  const image = getImage(imageData);
-
   const categories = [
-    "All",
-    ...new Set(allPosts.map((post) => post.node.category)),
-    ...new Set(allPosts.map((post) => post.node.categoryFrameworks)),
+    "All projects",
+    ...new Set(
+      allPosts
+        .map((post) => [post.node.category, post.node.categoryFrameworks])
+        .flat()
+        .filter((category) => category !== null && category !== ""),
+    ),
   ];
 
   const handleCategoryChange = (
@@ -102,51 +103,54 @@ const Portfolio: React.FC<PageProps<PortfolioQuery>> = (props) => {
   console.log("filteredPosts:", filteredPosts());
 
   return (
-    <Layout>
-      <Navbar />
-      <main className="">
-        <div className="flex justify-end">
-          <form>
-            <label htmlFor="categories">
-              <select
-                id="categories"
-                className="p-2 m-2 rounded-lg shadow-md"
-                onChange={(e) => handleCategoryChange(e)}
-              >
-                {categories.map((category, index) => (
-                  <option key={`${index}`} value={category}>
-                    {category}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </form>
-        </div>
-        <div className="flex flex-wrap justify-center space-x-4 mt-2 ">
-          {filteredPosts().map(({ node }, index) => (
-            <>
-              <div className="m-40 p-40" key={index}>
-                <PortfolioPage
-                  key={node.slug}
-                  slug={node.slug}
-                  title={node.titel}
-                  metaDescription={node.metaDescription}
-                  underrubrik={node.underrubrik}
-                  imageData={node.bild && node.bild}
-                  description={
-                    ""
-                      ? documentToReactComponents(
-                          JSON.parse(node.beskrivning.raw),
-                        )
-                      : null
-                  }
-                />
-              </div>
-            </>
-          ))}
-        </div>
-      </main>
-    </Layout>
+    <>
+      <Head metaDescription="Click here!" titel="Portfolio" />
+      <Layout>
+        <Navbar />
+        <main className="">
+          <div className="flex justify-end">
+            <form>
+              <label htmlFor="categories">
+                <select
+                  id="categories"
+                  className="p-2 m-4 rounded-lg shadow-md bg-white"
+                  onChange={(e) => handleCategoryChange(e)}
+                >
+                  {categories.map((category, index) => (
+                    <option key={`${index}`} value={category}>
+                      {category}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </form>
+          </div>
+          <div className="flex flex-wrap justify-center mt-2">
+            {filteredPosts().map(({ node }, index) => (
+              <>
+                <div className="" key={index}>
+                  <PortfolioPage
+                    key={node.slug}
+                    slug={node.slug}
+                    title={node.titel}
+                    metaDescription={node.metaDescription}
+                    underrubrik={node.underrubrik}
+                    imageData={node.bild}
+                    description={
+                      ""
+                        ? documentToReactComponents(
+                            JSON.parse(node.beskrivning.raw),
+                          )
+                        : null
+                    }
+                  />
+                </div>
+              </>
+            ))}
+          </div>
+        </main>
+      </Layout>
+    </>
   );
 };
 

@@ -38,7 +38,13 @@ const Navbar = () => (
                 key={node.slug}
                 className="text-stone-900 p-2 hover:text-stone-700 font-semibold"
               >
-                <Link to={`/${node.slug}`} className="">
+                <Link
+                  to={`/${node.slug}`}
+                  className=""
+                  activeStyle={{
+                    textDecoration: "underline",
+                  }}
+                >
                   {node.titel}
                 </Link>
               </li>

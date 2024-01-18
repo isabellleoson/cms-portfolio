@@ -63,8 +63,16 @@ const Index: React.FC<PageProps<QueryResult>> = ({ data }) => {
 
   const RichTextDiv = styled.div`
     z-index: 0 !important;
+    width-auto;
     @media (max-width: 700px) {
       font-size: 20px;
+    
+    }
+  `;
+
+  const LinkDiv = styled.div`
+    @media (min-width: 600px) {
+      display: none;
     }
   `;
   const Pdiv = styled.div`
@@ -100,7 +108,7 @@ const Index: React.FC<PageProps<QueryResult>> = ({ data }) => {
       />
       <Layout>
         {portfolio.image ? (
-          <Container className="flex flex-wrap p-4">
+          <Container className="flex pl-6 pr-6 pt-2">
             <ImgDiv className="p-4 flex-1">
               {image && (
                 <GatsbyImage
@@ -111,13 +119,13 @@ const Index: React.FC<PageProps<QueryResult>> = ({ data }) => {
               )}
             </ImgDiv>
 
-            <div className="flex-1 text-end space-y-8 items-end flex flex-col">
+            <div className="flex-1 space-y-6 flex flex-col justify-center">
               <H1 className="font-semibold">{portfolio.titel}</H1>
 
               {portfolio.richText && (
                 <RichTextDiv
-                  className="text-3xl tracking-wider
-                bg-rose-50 shadow-lg bg-opacity-90 p-6"
+                  className="text-3xl text-end tracking-wider
+                bg-rose-50 shadow-lg bg-opacity-90 p-8"
                 >
                   <Pdiv className="drop-shadow-lg">
                     {documentToReactComponents(
@@ -127,14 +135,14 @@ const Index: React.FC<PageProps<QueryResult>> = ({ data }) => {
                 </RichTextDiv>
               )}
 
-              <RichTextDiv className="space-x-5 text-3xl bg-blue-500 bg-opacity-95 p-6 w-full font-semibold tracking-wider shadow-lg">
+              <LinkDiv className="space-x-5 text-3xl bg-blue-500 bg-opacity-95 p-6 w-full font-semibold tracking-wider shadow-lg">
                 <Link to="/Portfolio" className="hover:text-stone-700">
                   Portfolio
                 </Link>
                 <Link to="/Resume" className="hover:text-stone-700">
                   Resumé
                 </Link>
-              </RichTextDiv>
+              </LinkDiv>
             </div>
           </Container>
         ) : null}

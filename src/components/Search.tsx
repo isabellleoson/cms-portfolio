@@ -5,22 +5,15 @@ import { Link } from "gatsby";
 interface SearchProps {
   searchIndex: any;
 }
-
 interface SearchResult {
   titel: string;
   slug: string;
-  category: string;
 }
 
-// Search component
 const Search: React.FC<SearchProps> = ({ searchIndex }) => {
   const [query, setQuery] = useState<string>("");
   const [results, setResults] = useState<SearchResult[]>([]);
   const [index, setIndex] = useState<Index<{ titel: string }> | null>(null);
-
-  console.log("indexStart", index);
-  console.log("searchIndexStart", searchIndex);
-
   useEffect(() => {
     // Load the index when the component mounts
     if (!index) {
@@ -28,8 +21,8 @@ const Search: React.FC<SearchProps> = ({ searchIndex }) => {
     }
   }, [index, searchIndex]);
 
-  const handleSearch = (evt: ChangeEvent<HTMLInputElement>) => {
-    const query = evt.target.value;
+  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
+    const query = e.target.value;
     setQuery(query);
     if (index) {
       const searchResults = index
@@ -38,7 +31,6 @@ const Search: React.FC<SearchProps> = ({ searchIndex }) => {
           ({ ref }: { ref: string }) =>
             index.documentStore.getDoc(ref) as SearchResult,
         );
-      console.log("setResults", searchResults);
       setResults(searchResults);
     }
   };
@@ -46,7 +38,7 @@ const Search: React.FC<SearchProps> = ({ searchIndex }) => {
   console.log("results", results);
 
   return (
-    <div>
+    <div className="">
       <form>
         <label>
           <input
@@ -54,17 +46,25 @@ const Search: React.FC<SearchProps> = ({ searchIndex }) => {
             value={query}
             onChange={handleSearch}
             placeholder="Search projects..."
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block p-2.5"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block p-2.5 relative"
           />
         </label>
       </form>
-      <ul>
-        {results.map((page) => (
-          <li key={page.slug}>
-            <Link className="p-2 text-base font-semibold" to={"/" + page.slug}>
-              {page.slug}
+      <ul className="rounded-b-lg text-end p-2">
+        {results.length === 0 && query.length > 0 && (
+          <li className="absolute rounded-b-lg text-end p-2 bg-white">
+            No matches
+          </li>
+        )}
+        {results.map((project) => (
+          <li
+            className="absolute rounded-b-lg text-end p-2 bg-white"
+            key={project.slug}
+          >
+            <Link to={"/" + project.slug}>
+              {project.slug}
+              <p>{project.slug}</p>
             </Link>
-            {/* {": " + page.tags.join(`,`)} */}
           </li>
         ))}
       </ul>
