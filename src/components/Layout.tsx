@@ -3,7 +3,7 @@ import { useStaticQuery, graphql, HeadFC } from "gatsby";
 import Navigation from "./navigation";
 import Footer from "./Footer";
 import NavbarMobile from "./NavbarMobile";
-
+import Head from "./Head";
 interface LayoutProps {
   children: React.ReactNode;
 }
@@ -38,6 +38,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   }, []);
   return (
     <>
+      <Head metaDescription="Meta from Layout" titel="Titel from Layout" />
       <header className="pb-2 drop-shadow-md">
         {screenSize === "mobile" && <NavbarMobile />}
         {screenSize === "desktop" && <Navigation />}
@@ -51,15 +52,15 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 };
 export default Layout;
 
-export const Head: HeadFC<HeadProps> = ({ data }) => {
-  return (
-    <>
-      <html lang="en" />
-      {data.metaDescription && (
-        <meta name="description" content={data.metaDescription} />
-      )}
-      <title>{data.title}</title>
-      <link rel="canonical" href="https://ileosonportfolio.netlify.app/" />
-    </>
-  );
-};
+// export const Head: HeadFC<HeadProps> = ({ data }) => {
+//   return (
+//     <>
+//       <html lang="en" />
+//       {data.metaDescription && (
+//         <meta name="description" content={data.metaDescription} />
+//       )}
+//       <title>{data.title}</title>
+//       <link rel="canonical" href="https://ileosonportfolio.netlify.app/" />
+//     </>
+//   );
+// };
