@@ -28,14 +28,24 @@ const NavbarMobile = () => {
   return (
     <Container className="flex justify-end bg-rose-200">
       <div className="flex flex-col items-end">
-        <button className="p-4" onClick={toggleMenu}>
+        <button
+          id="hamburger menu symbol"
+          name="menu"
+          className="p-4"
+          onClick={toggleMenu}
+        >
           {!isOpen && <RiMenu3Fill className="text-2xl" />}
         </button>
       </div>
 
       {isOpen ? (
         <div className="flex flex-col items-end text-end">
-          <button className="p-2" onClick={toggleMenu}>
+          <button
+            id="close symbol"
+            name="menu"
+            className="p-2"
+            onClick={toggleMenu}
+          >
             {isOpen && <IoMdClose className="text-2xl" />}
           </button>
           <Nav className="flex flex-col pl-6 pr-6 pb-6 ">

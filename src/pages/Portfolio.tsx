@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { graphql, PageProps } from "gatsby";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import Layout from "../components/Layout";
@@ -97,6 +97,12 @@ const Portfolio: React.FC<PageProps<PortfolioQuery>> = (props) => {
       );
     }
   };
+
+  useEffect(() => {
+    const pageTitle =
+      filteredPosts().length > 0 ? filteredPosts()[0].node.titel : "Portfolio";
+    document.title = pageTitle;
+  }, [selectedCategory]);
 
   console.log("selectedCategory:", selectedCategory);
   console.log("filteredPosts:", filteredPosts());
