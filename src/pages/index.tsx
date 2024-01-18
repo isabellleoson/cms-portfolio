@@ -4,7 +4,7 @@ import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import Layout from "../components/Layout";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import styled from "styled-components";
-import Head from "../components/Head";
+// import Head from "../components/Head";
 
 interface GatsbyImageSource {
   srcSet: string;
@@ -102,10 +102,10 @@ const Index: React.FC<PageProps<QueryResult>> = ({ data }) => {
 
   return (
     <>
-      <Head
+      {/* <Head
         metaDescription={portfolio.metaDescription}
         titel={portfolio.titel}
-      />
+      /> */}
       <Layout>
         {portfolio.image ? (
           <Container className="flex pl-6 pr-6 pt-2">
@@ -169,3 +169,17 @@ export const pageQuery = graphql`
 `;
 
 export default Index;
+
+export const Head: HeadFC<BlogProps> = ({ data }) => {
+  return (
+    <>
+      <html lang="en">
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content={data.metaDescription} />
+        <title>{data.titel}</title>
+        <link rel="canonical" href="https://ileosonportfolio.netlify.app/" />
+      </html>
+    </>
+  );
+};
