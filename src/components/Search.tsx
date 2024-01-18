@@ -9,6 +9,7 @@ interface SearchProps {
 interface SearchResult {
   titel: string;
   slug: string;
+  category: string;
 }
 
 // Search component
@@ -46,16 +47,17 @@ const Search: React.FC<SearchProps> = ({ searchIndex }) => {
 
   return (
     <div>
-      <label htmlFor="search">
-        <input
-          id="search"
-          type="text"
-          value={query}
-          onChange={handleSearch}
-          placeholder="Search projects..."
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block p-2.5"
-        />
-      </label>
+      <form>
+        <label>
+          <input
+            type="text"
+            value={query}
+            onChange={handleSearch}
+            placeholder="Search projects..."
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block p-2.5"
+          />
+        </label>
+      </form>
       <ul>
         {results.map((page) => (
           <li key={page.slug}>

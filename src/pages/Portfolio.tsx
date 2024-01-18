@@ -122,10 +122,10 @@ const Portfolio: React.FC<PageProps<PortfolioQuery>> = (props) => {
             </label>
           </form>
         </div>
-        <div className="flex flex-wrap justify-center space-x-4 mt-2">
+        <div className="flex flex-wrap justify-center space-x-4 mt-2 ">
           {filteredPosts().map(({ node }, index) => (
             <>
-              <div key={index}>
+              <div className="m-40 p-40" key={index}>
                 <PortfolioPage
                   key={node.slug}
                   slug={node.slug}

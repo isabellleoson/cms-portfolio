@@ -31,6 +31,7 @@ const Navbar = () => (
               }
             }
           `}
+          // maps through a content type to use slug to dynamiclly render portfolio projects to the project navbar
           render={(data: { allContentfulPortfolio: { nodes: Node[] } }) =>
             data.allContentfulPortfolio.nodes.map((node) => (
               <li

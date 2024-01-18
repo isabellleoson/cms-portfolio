@@ -19,6 +19,8 @@ const Li = styled.li`
 const NavbarMobile = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
+  //toggles hamburger menu
+
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };

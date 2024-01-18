@@ -3,6 +3,7 @@ import React from "react";
 import Layout from "../components/Layout";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
+import Head from "../components/Head";
 
 interface GatsbyImageSource {
   srcSet: string;
@@ -54,6 +55,7 @@ const Contact: React.FC<PageProps<QueryResult>> = ({ data }) => {
 
   return (
     <>
+      <Head metaDescription={contact.metaDescription} titel={contact.titel} />
       <Layout>
         <div className="p-6 flex items-center justify-center space-x-10">
           <div className="max-w-md">

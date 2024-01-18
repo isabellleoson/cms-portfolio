@@ -58,7 +58,6 @@ const config: GatsbyConfig = {
     "gatsby-plugin-sharp",
     "gatsby-transformer-sharp",
     "gatsby-plugin-postcss",
-    `gatsby-plugin-react-helmet`,
   ],
 };
 

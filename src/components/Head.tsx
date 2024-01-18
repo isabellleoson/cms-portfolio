@@ -1,10 +1,11 @@
-import { HeadFC, PageProps } from "gatsby";
 import React from "react";
 
 interface HeadProps {
   titel: string;
   metaDescription: string;
 }
+
+// component to handle dynamic head data
 const Head: React.FC<HeadProps> = ({ titel, metaDescription }) => {
   return (
     <>

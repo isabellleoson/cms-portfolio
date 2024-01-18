@@ -16,6 +16,8 @@ interface HeadProps {
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [screenSize, setScreenSize] = React.useState<string>("");
 
+  // function to handle screen size, to be able to show different navbars depending on size. window.addEventListener listens to the screens size
+
   React.useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;

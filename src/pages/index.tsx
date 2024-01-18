@@ -4,6 +4,7 @@ import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import Layout from "../components/Layout";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import styled from "styled-components";
+import Head from "../components/Head";
 
 interface GatsbyImageSource {
   srcSet: string;
@@ -93,6 +94,10 @@ const Index: React.FC<PageProps<QueryResult>> = ({ data }) => {
 
   return (
     <>
+      <Head
+        metaDescription={portfolio.metaDescription}
+        titel={portfolio.titel}
+      />
       <Layout>
         {portfolio.image ? (
           <Container className="flex flex-wrap p-4">
