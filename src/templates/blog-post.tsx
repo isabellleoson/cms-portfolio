@@ -5,7 +5,7 @@ import Layout from "../components/Layout";
 import Navbar from "../components/NavbarPortfolioProjects";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import styled from "styled-components";
-import Head from "../components/Head";
+// import Head from "../components/Head";
 
 //Interfaces for single images
 interface GatsbyImageSource {
@@ -157,10 +157,10 @@ const Blog: React.FC<PageProps<QueryResult>> = ({ data }) => {
 
   return (
     <>
-      <Head
+      {/* <Head
         metaDescription={portfolio.metaDescription}
         titel={portfolio.titel}
-      />
+      /> */}
       <Layout>
         <Navbar />
         <main className="flex flex-col items-center pl-6 pr-6">
@@ -237,3 +237,20 @@ export const pageQuery = graphql`
     }
   }
 `;
+
+export const Head: React.FC<PageProps<QueryResult>> = ({ data }) => {
+  const portfolio = data.contentfulPortfolio;
+  return (
+    <>
+      <html lang="en" />
+      <title>{portfolio.titel}</title>
+      <meta charSet="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta name="description" content={portfolio.metaDescription} />
+      <link
+        rel="canonical"
+        href={`https://ileosonportfolio.netlify.app/Resume${portfolio.slug}`}
+      />
+    </>
+  );
+};

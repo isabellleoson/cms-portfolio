@@ -29,8 +29,7 @@ const NavbarMobile = () => {
     <Container className="flex justify-end bg-rose-200">
       <div className="flex flex-col items-end">
         <button
-          id="hamburger menu symbol"
-          name="menu"
+          aria-label="Button for opening hamburger menu"
           className="p-4"
           onClick={toggleMenu}
         >
@@ -41,8 +40,7 @@ const NavbarMobile = () => {
       {isOpen ? (
         <div className="flex flex-col items-end text-end">
           <button
-            id="close symbol"
-            name="menu"
+            aria-label="Button for closing hamburger menu"
             className="p-2"
             onClick={toggleMenu}
           >

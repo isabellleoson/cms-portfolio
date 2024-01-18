@@ -98,20 +98,6 @@ const Portfolio: React.FC<PageProps<PortfolioQuery>> = (props) => {
     }
   };
 
-  useEffect(() => {
-    const pageMetaDescription =
-      filteredPosts().length > 0
-        ? filteredPosts()[0].node.metaDescription
-        : "Portfolio";
-    document.textContent = pageMetaDescription;
-    const pageTitle =
-      filteredPosts().length > 0 ? filteredPosts()[0].node.titel : "Portfolio";
-    document.title = pageTitle;
-  }, [selectedCategory]);
-
-  console.log("selectedCategory:", selectedCategory);
-  console.log("filteredPosts:", filteredPosts());
-
   return (
     <>
       <Layout>
@@ -119,7 +105,7 @@ const Portfolio: React.FC<PageProps<PortfolioQuery>> = (props) => {
         <main className="">
           <div className="flex justify-end">
             <form>
-              <label htmlFor="categories">
+              <label aria-label="Select for choosing portfolio project by categories of languages and frameworks">
                 <select
                   id="categories"
                   className="p-2 m-4 rounded-lg shadow-md bg-white"
@@ -193,32 +179,18 @@ export const pageQuery = graphql`
 
 export default Portfolio;
 
-export const Head: React.FC<PageProps<PortfolioQuery>> = ({ data }) => {
-  const [selectedPage, setSelectedPage] = useState<string | null>("Portfolio");
-  const allProjects = data.allContentfulPortfolio.edges;
-
-  const resume = [...new Set(allProjects.map((post) => post.node.titel))];
-
-  resume.sort();
-
-  const filteredPosts = () => {
-    return allProjects.filter((post) => post.node.titel === selectedPage);
-  };
+export const Head: React.FC = () => {
   return (
     <>
       <html lang="en" />
-      {filteredPosts().map(({ node }, index) => (
-        <>
-          <title>{node.titel}</title>
-          <meta name="description" content={node.metaDescription} />
-          <link
-            rel="canonical"
-            href={`https://ileosonportfolio.netlify.app/Resume${node.slug}`}
-          />
-        </>
-      ))}
+      <title>Portfolio</title>
       <meta charSet="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta name="description" content="Here you can find" />
+      <link
+        rel="canonical"
+        href={`https://ileosonportfolio.netlify.app/Portfolio`}
+      />
     </>
   );
 };

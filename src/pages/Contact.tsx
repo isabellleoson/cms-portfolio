@@ -102,7 +102,7 @@ export const Head: React.FC<PageProps<QueryResult>> = ({ data }) => {
       <meta name="description" content={portfolio.metaDescription} />
       <link
         rel="canonical"
-        href={`https://ileosonportfolio.netlify.app/Resume${portfolio.slug}`}
+        href={`https://ileosonportfolio.netlify.app/${portfolio.slug}`}
       />
     </>
   );

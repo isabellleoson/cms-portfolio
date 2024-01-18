@@ -40,7 +40,7 @@ const Search: React.FC<SearchProps> = ({ searchIndex }) => {
   return (
     <div className="">
       <form>
-        <label>
+        <label aria-label="Inputfield for searching projects">
           <input
             type="text"
             value={query}
