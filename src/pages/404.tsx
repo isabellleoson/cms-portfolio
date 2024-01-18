@@ -58,4 +58,13 @@ const NotFoundPage: React.FC<PageProps> = () => {
 
 export default NotFoundPage;
 
-export const Head: HeadFC = () => <p>Page not found</p>;
+export const Head: HeadFC = () => {
+  return (
+    <>
+      <html lang="en" />
+      <meta name="description" content="you took a wrong turn, sorry!"></meta>
+      <title>404</title>
+      <link rel="canonical" href="https://ileosonportfolio.netlify.app/" />
+    </>
+  );
+};

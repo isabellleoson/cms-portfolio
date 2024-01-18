@@ -4,7 +4,6 @@ import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import Layout from "../components/Layout";
 import PortfolioPage from "../components/PortfolioPage";
 import Navbar from "../components/NavbarPortfolioProjects";
-import Head from "../components/Head";
 
 interface GatsbyImageSource {
   srcSet: string;
@@ -104,7 +103,6 @@ const Portfolio: React.FC<PageProps<PortfolioQuery>> = (props) => {
 
   return (
     <>
-      <Head metaDescription="Click here!" titel="Portfolio" />
       <Layout>
         <Navbar />
         <main className="">
@@ -183,3 +181,33 @@ export const pageQuery = graphql`
 `;
 
 export default Portfolio;
+
+export const Head: React.FC<PageProps<PortfolioQuery>> = ({ data }) => {
+  const [selectedPage, setSelectedPage] = useState<string | null>("Portfolio");
+  const allProjects = data.allContentfulPortfolio.edges;
+
+  const resume = [...new Set(allProjects.map((post) => post.node.titel))];
+
+  resume.sort();
+
+  const filteredPosts = () => {
+    return allProjects.filter((post) => post.node.titel === selectedPage);
+  };
+  return (
+    <>
+      <html lang="en" />
+      {filteredPosts().map(({ node }, index) => (
+        <>
+          <title>{node.titel}</title>
+          <meta name="description" content={node.metaDescription} />
+          <link
+            rel="canonical"
+            href={`https://ileosonportfolio.netlify.app/Resume${node.slug}`}
+          />
+        </>
+      ))}
+      <meta charSet="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+    </>
+  );
+};

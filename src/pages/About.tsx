@@ -3,6 +3,7 @@ import React from "react";
 import Layout from "../components/Layout";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 
+
 interface AboutProps {
   title: string;
   slug: string;
