@@ -125,7 +125,7 @@ const Index: React.FC<PageProps<QueryResult>> = ({ data }) => {
             </ImgDiv>
 
             <div className="flex-1 space-y-6 flex flex-col justify-center">
-              <H1 className="font-semibold">{portfolio.titel}</H1>
+              <H1 className="font-semibold text-center">{portfolio.titel}</H1>
 
               {portfolio.richText && (
                 <RichTextDiv

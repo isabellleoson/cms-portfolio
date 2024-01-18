@@ -2,29 +2,62 @@ import React, { useEffect, useState } from "react";
 import { graphql, HeadFC, PageProps } from "gatsby";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import Layout from "../components/Layout";
-// import Head from "../components/Head";
 import styled from "styled-components";
 
-const H1 = styled.h1`
-  font-size: 50px;
+const Container = styled.div`
+  margin-left: 40px;
+  margin-right: 40px;
 
   @media (max-width: 600px) {
-    font-size: 30px;
+    margin-left: 5px;
+    margin-right: 5px;
   }
+`;
+
+const H1Container = styled.div`
+  @media (max-width: 600px) {
+    font-size: 25px;
+    width: 140px;
+  }
+`;
+
+const H1 = styled.h1`
+  font-size: 70px;
+
+  @media (max-width: 600px) {
+    font-size: 25px;
+    width: 100%;
+  }
+`;
+
+const PDiv = styled.div`
+  width: 60%;
+  @media (max-width: 600px) {
+    width: 100%;
+  }
+`;
+
+const P = styled.p`
+  width: 70%;
 `;
 
 const Ul = styled.ul`
-  padding: 5px 30px 50px;
-  margin: 0 30px 50px;
+  padding: 10px 120px 50px;
+
+  @media (min-width: 600px) and (max-width: 950px) {
+    padding: 10px 20px 40px;
+  }
   @media (max-width: 600px) {
-    padding: 10px;
-    padding-bottom: 40px;
+    padding: 10px 15px 30px;
   }
 `;
 const Li = styled.li`
+  font-size: 18px;
+  padding-bottom: 10px;
+
   @media (max-width: 600px) {
     font-size: 14px;
-    padding: 5px;
+    padding-bottom: 5px;
   }
 `;
 
@@ -69,43 +102,38 @@ const Category: React.FC<PageProps<PortfolioQuery>> = (props) => {
 
   return (
     <Layout>
-      <main className="ml-6 mr-6">
-        <div className="">
-          <div className="">
-            {filteredPosts().map(({ node }, index) => (
-              <>
-                <div className="flex drop-shadow-xl">
-                  <Ul className="flex-3 h-full drop-shadow-lg rounded-b-full bg-blue-500">
-                    {categories.map((category, index) => (
-                      <Li
-                        className="text-stone-900 hover:text-stone-400"
-                        key={`${index}`}
-                      >
-                        <button onClick={() => setSelectedCategory(category)}>
-                          {category}
-                        </button>
-                      </Li>
-                    ))}
-                  </Ul>
-
-                  <div
-                    className="flex flex-1 flex-col items-end text-end bg-opacity-20"
-                    key={index}
+      <Container>
+        {filteredPosts().map(({ node }, index) => (
+          <>
+            <div className="flex items-center justify-between">
+              <Ul className="drop-shadow-lg text-center rounded-b-full bg-blue-500">
+                {categories.map((category, index) => (
+                  <Li
+                    className="text-stone-900 hover:text-stone-700"
+                    key={`${index}`}
                   >
-                    <H1 className="mt-6 mb-6">{node.title}</H1>
+                    <button onClick={() => setSelectedCategory(category)}>
+                      {category}
+                    </button>
+                  </Li>
+                ))}
+              </Ul>
+              <H1Container>
+                <H1 className="text-center">{node.title}</H1>
+              </H1Container>
+            </div>
 
-                    <p className="pb-6 bg-rose-50 p-4">
-                      {documentToReactComponents(
-                        JSON.parse(node.description.raw),
-                      )}
-                    </p>
-                  </div>
-                </div>
-              </>
-            ))}
-          </div>
-        </div>
-      </main>
+            <PDiv
+              className="flex items-end text-end justify-end w-full"
+              key={index}
+            >
+              <P className="pb-6 bg-rose-50 p-4 text-end leading-8">
+                {documentToReactComponents(JSON.parse(node.description.raw))}
+              </P>
+            </PDiv>
+          </>
+        ))}
+      </Container>
     </Layout>
   );
 };

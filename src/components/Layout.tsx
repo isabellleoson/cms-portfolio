@@ -39,7 +39,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <>
      
-      <header className="pb-2 drop-shadow-md">
+      <header className="drop-shadow-md">
         {screenSize === "mobile" && <NavbarMobile />}
         {screenSize === "desktop" && <Navigation />}
       </header>
