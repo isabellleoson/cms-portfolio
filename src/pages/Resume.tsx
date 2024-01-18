@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { graphql, HeadFC, PageProps } from "gatsby";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import Layout from "../components/Layout";
-import Head from "../components/Head";
+// import Head from "../components/Head";
 import styled from "styled-components";
 
 const H1 = styled.h1`
@@ -61,13 +61,14 @@ const Category: React.FC<PageProps<PortfolioQuery>> = (props) => {
     return allPosts.filter((post) => post.node.category === selectedCategory);
   };
 
-  const title = filteredPosts().length > 0 ? filteredPosts()[0].node.title : "";
-  const metaDescription =
-    filteredPosts().length > 0 ? filteredPosts()[0].node.metaDescription : "";
+  useEffect(() => {
+    const pageTitle =
+      filteredPosts().length > 0 ? filteredPosts()[0].node.title : "About";
+    document.title = pageTitle;
+  }, [selectedCategory]);
 
   return (
     <Layout>
-      <Head metaDescription={metaDescription} titel={title} />
       <main className="ml-6 mr-6">
         <div className="">
           <div className="">
@@ -128,3 +129,30 @@ export const pageQuery = graphql`
 `;
 
 export default Category;
+
+export const Head: React.FC<PageProps<PortfolioQuery>> = ({ data }) => {
+  const [selectedPage, setSelectedPage] = useState<string | null>("About");
+  const allResume = data.allContentfulResumePages.edges;
+
+  const resume = [...new Set(allResume.map((post) => post.node.title))];
+
+  resume.sort();
+
+  const filteredPosts = () => {
+    return allResume.filter((post) => post.node.title === selectedPage);
+  };
+  return (
+    <>
+      <html lang="en" />
+      {filteredPosts().map(({ node }, index) => (
+        <>
+          <title>{node.title}</title>
+          <meta name="description" content={node.metaDescription} />
+        </>
+      ))}
+      <meta charSet="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="canonical" href="https://ileosonportfolio.netlify.app/" />
+    </>
+  );
+};

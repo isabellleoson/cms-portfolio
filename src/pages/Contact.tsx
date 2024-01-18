@@ -3,7 +3,6 @@ import React from "react";
 import Layout from "../components/Layout";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
-import Head from "../components/Head";
 
 interface GatsbyImageSource {
   srcSet: string;
@@ -55,7 +54,6 @@ const Contact: React.FC<PageProps<QueryResult>> = ({ data }) => {
 
   return (
     <>
-      <Head metaDescription={contact.metaDescription} titel={contact.titel} />
       <Layout>
         <div className="p-6 flex items-center justify-center space-x-10">
           <div className="max-w-md">
@@ -92,3 +90,17 @@ export const pageQuery = graphql`
 `;
 
 export default Contact;
+
+export const Head: React.FC<PageProps<QueryResult>> = ({ data }) => {
+  const portfolio = data.contentfulPages;
+  return (
+    <>
+      <html lang="en" />
+      <title>{portfolio.titel}</title>
+      <meta charSet="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta name="description" content={portfolio.metaDescription} />
+      <link rel="canonical" href="https://ileosonportfolio.netlify.app/" />
+    </>
+  );
+};
