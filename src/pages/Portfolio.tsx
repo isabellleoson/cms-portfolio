@@ -99,6 +99,11 @@ const Portfolio: React.FC<PageProps<PortfolioQuery>> = (props) => {
   };
 
   useEffect(() => {
+    const pageMetaDescription =
+      filteredPosts().length > 0
+        ? filteredPosts()[0].node.metaDescription
+        : "Portfolio";
+    document.textContent = pageMetaDescription;
     const pageTitle =
       filteredPosts().length > 0 ? filteredPosts()[0].node.titel : "Portfolio";
     document.title = pageTitle;
