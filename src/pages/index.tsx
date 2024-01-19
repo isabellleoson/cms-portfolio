@@ -106,10 +106,6 @@ const Index: React.FC<PageProps<QueryResult>> = ({ data }) => {
 
   return (
     <>
-      {/* <Head
-        metaDescription={portfolio.metaDescription}
-        titel={portfolio.titel}
-      /> */}
       <Layout>
         {portfolio.image ? (
           <Container className="flex pl-6 pr-6 pt-2">

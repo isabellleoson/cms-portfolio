@@ -47,8 +47,8 @@ interface QueryResult {
 }
 
 const Contact: React.FC<PageProps<QueryResult>> = ({ data }) => {
+  
   const contact = data.contentfulPages;
-
   const imageData = data.contentfulPages.image;
   const image = getImage(imageData);
 

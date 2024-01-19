@@ -162,13 +162,16 @@ export const Head: React.FC<PageProps<PortfolioQuery>> = ({ data }) => {
   const [selectedPage, setSelectedPage] = useState<string | null>("About");
   const allResume = data.allContentfulResumePages.edges;
 
+  // Creating a list of unique resume titles and sort them
   const resume = [...new Set(allResume.map((post) => post.node.title))];
 
   resume.sort();
 
+  // Function to filter resume data based on the selected page
   const filteredPosts = () => {
     return allResume.filter((post) => post.node.title === selectedPage);
   };
+
   return (
     <>
       <html lang="en" />

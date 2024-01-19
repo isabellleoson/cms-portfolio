@@ -3,21 +3,14 @@ import { useStaticQuery, graphql, HeadFC } from "gatsby";
 import Navigation from "./navigation";
 import Footer from "./Footer";
 import NavbarMobile from "./NavbarMobile";
-import Head from "./Head";
 interface LayoutProps {
   children: React.ReactNode;
-}
-
-interface HeadProps {
-  metaDescription: string;
-  title: string;
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [screenSize, setScreenSize] = React.useState<string>("");
 
   // function to handle screen size, to be able to show different navbars depending on size. window.addEventListener listens to the screens size
-
   React.useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;
@@ -38,7 +31,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   }, []);
   return (
     <>
-     
       <header className="drop-shadow-md">
         {screenSize === "mobile" && <NavbarMobile />}
         {screenSize === "desktop" && <Navigation />}
@@ -51,16 +43,3 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   );
 };
 export default Layout;
-
-// export const Head: HeadFC<HeadProps> = ({ data }) => {
-//   return (
-//     <>
-//       <html lang="en" />
-//       {data.metaDescription && (
-//         <meta name="description" content={data.metaDescription} />
-//       )}
-//       <title>{data.title}</title>
-//       <link rel="canonical" href="https://ileosonportfolio.netlify.app/" />
-//     </>
-//   );
-// };

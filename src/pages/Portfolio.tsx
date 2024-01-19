@@ -71,6 +71,7 @@ const Portfolio: React.FC<PageProps<PortfolioQuery>> = (props) => {
     ),
   ];
 
+  // Function to handle categories change is the selected dropdown
   const handleCategoryChange = (
     event: React.ChangeEvent<HTMLSelectElement>,
   ) => {
@@ -83,6 +84,7 @@ const Portfolio: React.FC<PageProps<PortfolioQuery>> = (props) => {
     });
   };
 
+  // Function to filter posts based on the selected categories
   const filteredPosts = () => {
     if (
       selectedCategory.category === "All" ||

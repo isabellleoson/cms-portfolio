@@ -1,6 +1,5 @@
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import * as React from "react";
-import Head from "./Head";
 import styled from "styled-components";
 
 interface GatsbyImageSource {
@@ -67,11 +66,11 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({
   metaDescription,
   slug,
 }) => {
+
+  //checks if the image exist, so it won't render if it doesen't
   const gatsbyImage = imageData ? getImage(imageData) : null;
   return (
     <>
-      <Head metaDescription={metaDescription} titel={title} />
-
       <a href={`/${slug}`}>
         <Container className="bg-white border border-gray-200 rounded-lg shadow-md m-2">
           {gatsbyImage && (

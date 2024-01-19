@@ -21,7 +21,7 @@ const NavbarPages = () => (
               }
             }
           `}
-          // uses the content type slug to render pages to navbar
+          // uses the content type 'slug' to render pages to navbar
           render={(data: { allContentfulPages: { nodes: Node[] } }) =>
             data.allContentfulPages.nodes.map((node) => (
               <li key={node.slug} className="">
