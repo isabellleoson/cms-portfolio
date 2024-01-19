@@ -61,10 +61,7 @@ const Search: React.FC<SearchProps> = ({ searchIndex }) => {
             className="absolute rounded-b-lg text-end p-2 bg-white"
             key={project.slug}
           >
-            <Link to={"/" + project.slug}>
-              {project.slug}
-              <p>{project.slug}</p>
-            </Link>
+            <Link to={"/" + project.slug}>{project.slug}</Link>
           </li>
         ))}
       </ul>

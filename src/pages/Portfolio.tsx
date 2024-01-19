@@ -112,7 +112,7 @@ const Portfolio: React.FC<PageProps<PortfolioQuery>> = (props) => {
                   onChange={(e) => handleCategoryChange(e)}
                 >
                   {categories.map((category, index) => (
-                    <option key={`${index}`} value={category}>
+                    <option className="p-2" key={`${index}`} value={category}>
                       {category}
                     </option>
                   ))}

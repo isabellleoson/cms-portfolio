@@ -109,7 +109,7 @@ const Category: React.FC<PageProps<PortfolioQuery>> = (props) => {
               <Ul className="drop-shadow-lg text-center rounded-b-full bg-blue-500">
                 {categories.map((category, index) => (
                   <Li
-                    className="text-stone-900 hover:text-stone-700"
+                    className="text-stone-100 hover:text-stone-700 font-semibold"
                     key={`${index}`}
                   >
                     <button onClick={() => setSelectedCategory(category)}>
