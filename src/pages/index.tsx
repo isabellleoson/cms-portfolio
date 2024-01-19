@@ -60,18 +60,16 @@ const Index: React.FC<PageProps<QueryResult>> = ({ data }) => {
   const image = getImage(imageData);
 
   const Container = styled.div`
-    z-index: 10:
     @media (max-width: 700px) {
       flex-direction: column;
     }
   `;
 
   const RichTextDiv = styled.div`
-    z-index: 0 !important;
-    width-auto;
     @media (max-width: 700px) {
       font-size: 20px;
-    
+      padding-top: o;
+      margin-top: 0;
     }
   `;
 
@@ -89,8 +87,9 @@ const Index: React.FC<PageProps<QueryResult>> = ({ data }) => {
   const H1 = styled.h1`
     font-size: 50px;
     @media (max-width: 700px) {
-      font-size: 30px;
-      margin-right: 30px;
+      font-size: 40px;
+      padding-bottom: 2px;
+      margin-bottom: 2px;
     }
   `;
 
